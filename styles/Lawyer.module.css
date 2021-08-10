@@ -1,0 +1,23 @@
+.outerContainer {
+	width: 1000px;
+	display: flex;
+	margin: auto;
+	flex-direction: column;
+	margin-top: 100px;
+}
+
+.rowContainer {
+	width: 100%;
+	height: 450px;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 40px;
+}
+
+.smallCard {
+	width: 480px;
+}
+
+.bigCard {
+	width: 100%;
+}
