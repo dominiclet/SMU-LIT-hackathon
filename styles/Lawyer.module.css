@@ -26,3 +26,17 @@
 	background-color: #e4dace;
 	border-color: #e4d3bf;
 }
+
+.averageCostInnerInfo {
+	height: 40%;
+}
+
+.averageCostInnerInfo {
+	padding-left: 20px;
+}
+
+.averageCostInnerPrice {
+	font-size: 2rem;
+	text-align: center;
+	margin-top: 40px;
+}
