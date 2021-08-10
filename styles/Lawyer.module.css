@@ -1,10 +1,17 @@
+.mainContainer {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1000px 1fr;
+	margin-top: 100px;
+	margin-bottom: 100px;
+}
+
 .outerContainer {
 	width: 1000px;
 	display: flex;
 	margin: auto;
 	flex-direction: column;
-	margin-top: 100px;
-	margin-bottom: 100px;
 }
 
 .rowContainer {
@@ -39,4 +46,17 @@
 	font-size: 2rem;
 	text-align: center;
 	margin-top: 40px;
+}
+
+.mapContainer {
+	width: 100%;
+	height: 70%;
+}
+
+/* Vertical Nav styling */
+.navbarContainer {
+	display: flex;
+	flex-direction: column;
+	padding-left: 20px;
+	padding-right: 20px;
 }

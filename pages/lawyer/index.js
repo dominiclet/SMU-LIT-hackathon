@@ -1,62 +1,31 @@
+import LawyerDashboard from "../../components/LawyerDashboard";
 import styles from "../../styles/Lawyer.module.css";
-import Card from "react-bootstrap/Card";
+import Tab from "react-bootstrap/Tab";
+import Nav from "react-bootstrap/Nav";
 
-const lawyerDashboard = () => {
+const lawyerDashboardPage = () => {
 	return (
-		<div className={styles.outerContainer}>
-			<div className={styles.rowContainer}>
-				<Card className={styles.smallCard}>
-					<Card.Body>
-						<Card.Title>Lawyer's profile</Card.Title>
-						<Card.Text>
-							blablabla
-						</Card.Text>
-					</Card.Body>
-				</Card>
-				<Card className={styles.smallCard}>
-					<Card.Body>
-						<Card.Title>Meetup info</Card.Title>
-						<Card.Text>
-							blablabala
-						</Card.Text>
-					</Card.Body>
-				</Card>
+		<Tab.Container defaultActiveKey="first">
+			<div className={styles.mainContainer}>
+				<Nav variant="pills" className={styles.navbarContainer}>
+					<Nav.Item className={styles.navItem}>
+						<Nav.Link eventKey="first">Client 1</Nav.Link>
+					</Nav.Item>
+					<Nav.Item>
+						<Nav.Link eventKey="second">Client 2</Nav.Link>
+					</Nav.Item>
+				</Nav>
+				<Tab.Content>
+					<Tab.Pane eventKey="first">
+						<LawyerDashboard clientName="Client 1" />
+					</Tab.Pane>
+					<Tab.Pane eventKey="second">
+						<LawyerDashboard clientName="Client 2" />
+					</Tab.Pane>
+				</Tab.Content>
 			</div>
-			<div className={styles.rowContainer}>
-				<Card className={styles.bigCard}>
-					<Card.Body>
-						<Card.Title>Case brief</Card.Title>
-						<Card.Text>
-							blablabla
-						</Card.Text>
-					</Card.Body>
-				</Card>
-			</div>
-			<div className={styles.rowContainer}>
-				<Card className={styles.smallCard}>
-					<Card.Body>
-						<Card.Title>Average cost...</Card.Title>
-						<div className={styles.averageCostInnerInfo}>
-							<div className={styles.averageCostInnerTitle}>
-								of this lawyer:
-							</div>
-							<div className={styles.averageCostInnerPrice}>
-								$80
-							</div>
-						</div>
-						<div className={styles.averageCostInnerInfo}>
-							<div className={styles.averageCostInnerTitle}>
-								of this type of service:
-							</div>
-							<div className={styles.averageCostInnerPrice}>
-								$100
-							</div>
-						</div>
-					</Card.Body>
-				</Card>
-			</div>
-		</div>
+		</Tab.Container>
 	);
 }
 
-export default lawyerDashboard
+export default lawyerDashboardPage
