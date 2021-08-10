@@ -4,6 +4,7 @@
 	margin: auto;
 	flex-direction: column;
 	margin-top: 100px;
+	margin-bottom: 100px;
 }
 
 .rowContainer {
@@ -16,8 +17,12 @@
 
 .smallCard {
 	width: 480px;
+	background-color: #e4dace;
+	border-color: #e4d3bf;
 }
 
 .bigCard {
 	width: 100%;
+	background-color: #e4dace;
+	border-color: #e4d3bf;
 }
