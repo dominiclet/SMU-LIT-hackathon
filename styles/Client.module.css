@@ -1,0 +1,23 @@
+.root {
+  width: "100%";
+}
+
+.container {
+  color: #e4d3bf;
+}
+
+.backButton {
+  margin-right: 1;
+}
+
+.instructions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+}
+
+.selectionButtons {
+  display: flex;
+  justify-content: space-around;
+}
