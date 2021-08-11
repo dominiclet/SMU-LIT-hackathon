@@ -15,3 +15,22 @@ a {
 * {
   box-sizing: border-box;
 }
+
+/* To override bootstrap for nav-link */
+.nav-link.active {
+  background-color: #c29d71 !important;
+}
+
+.nav-link {
+  color: #8e8d8a;
+}
+
+.nav-link:hover {
+  background-color: #e2cbb0;
+  color: white;
+}
+
+/* Material UI */
+.MuiPaper-root {
+  background-color: #eae7dc !important;
+}

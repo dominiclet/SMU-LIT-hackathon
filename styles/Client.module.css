@@ -72,8 +72,13 @@
 
 .briefTextDisplay {
 	height: 340px;
-	background-color: #f1e8de;
-	border-color: #f0eae4;
+	background-color: #e4dace;
+	border-color: #e4dace;
 	padding: 10px;
 	margin-bottom: 10px;
+}
+
+.briefTextDisplay:focus {
+	background-color: #eee9e2;
+	box-shadow: none;
 }
