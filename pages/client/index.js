@@ -2,6 +2,7 @@ import styles from "../../styles/Lawyer.module.css";
 import Card from "react-bootstrap/Card";
 import StageStepper from "../../components/clientDashboard/StageStepper";
 import SelectionButtons from "../../components/clientDashboard/SelectionButtons";
+import Calendar from "../../components/clientDashboard/Calendar";
 
 const clientDashboard = () => {
 	return (
@@ -22,6 +23,7 @@ const clientDashboard = () => {
 						<Card.Text>
 							blablabala
 						</Card.Text>
+						<Calendar/>
 					</Card.Body>
 				</Card>
 			</div>

@@ -5,7 +5,6 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import clientStyle from '../../styles/Client.module.css';
-import { red } from '@material-ui/core/colors';
 
 const getSteps = () => {
     return [
