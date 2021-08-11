@@ -1,9 +1,9 @@
 import styles from "../../styles/Client.module.css";
 import StageStepper from "../../components/clientDashboard/StageStepper";
 import SelectionButtons from "../../components/clientDashboard/SelectionButtons";
-import LawyerProfile from "../../components/LawyerProfile";
+import LawyerProfile from "../../components/clientDashboard/LawyerProfile";
 import { MeetUpInfo } from "../../components/MeetUpInfo";
-import { CaseBriefView } from "../../components/CaseBriefView";
+import { CaseBriefView } from "../../components/clientDashboard/CaseBriefView";
 import CaseBriefEdit from "../../components/CaseBriefEdit";
 import AverageCost from "../../components/AverageCost";
 
