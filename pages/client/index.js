@@ -1,4 +1,4 @@
-import styles from "../../styles/Lawyer.module.css";
+import styles from "../../styles/Client.module.css";
 import LawyerProfile from "../../components/LawyerProfile";
 import { MeetUpInfo } from "../../components/MeetUpInfo";
 import { CaseBriefView } from "../../components/CaseBriefView";

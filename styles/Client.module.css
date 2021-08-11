@@ -1,0 +1,55 @@
+.outerContainer {
+	width: 1000px;
+	display: flex;
+	margin: auto;
+	flex-direction: column;
+	margin-top: 100px;
+	margin-bottom: 100px;
+}
+
+.rowContainer {
+	width: 100%;
+	height: 450px;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 40px;
+}
+
+.smallCard {
+	width: 480px;
+	background-color: #e4dace;
+	border-color: #e4d3bf;
+}
+
+.bigCard {
+	width: 100%;
+	background-color: #e4dace;
+	border-color: #e4d3bf;
+}
+
+.averageCostInnerInfo {
+	height: 40%;
+}
+
+.averageCostInnerInfo {
+	padding-left: 20px;
+}
+
+.averageCostInnerPrice {
+	font-size: 2rem;
+	text-align: center;
+	margin-top: 40px;
+}
+
+.personInfo {
+	width: 100%;
+	justify-content:center;
+}
+
+.briefTextDisplay {
+	height: 340px;
+	background-color: #f1e8de;
+	border-color: #f0eae4;
+	padding: 10px;
+	margin-bottom: 10px;
+}

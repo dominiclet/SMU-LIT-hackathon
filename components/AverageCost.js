@@ -1,5 +1,5 @@
+import styles from '../styles/Client.module.css';
 import Card from 'react-bootstrap/Card';
-import styles from '../styles/Lawyer.module.css';
 
 const AverageCost = () => {
     return (

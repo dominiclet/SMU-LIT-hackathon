@@ -1,4 +1,4 @@
-import styles from '../styles/Lawyer.module.css';
+import styles from '../styles/Client.module.css';
 import Card from 'react-bootstrap/Card';
 import { InlineWidget } from "react-calendly";
 
