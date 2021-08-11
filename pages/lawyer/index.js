@@ -1,5 +1,9 @@
 import styles from "../../styles/Lawyer.module.css";
 import Card from "react-bootstrap/Card";
+import Image from "react-bootstrap/Image";
+import Badge from 'react-bootstrap/Badge';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 const lawyerDashboard = () => {
 	return (
@@ -7,10 +11,22 @@ const lawyerDashboard = () => {
 			<div className={styles.rowContainer}>
 				<Card className={styles.smallCard}>
 					<Card.Body>
-						<Card.Title>Lawyer's profile</Card.Title>
+						<Card.Title>Lawyer's Profile</Card.Title>
 						<Card.Text>
-							blablabla
+							Take a moment to look at our lawyer's information.
 						</Card.Text>
+						<div className={styles.personInfo}>
+							<Image src="../../blankimage.svg" roundedCircle />
+							<h5>Dominic Let</h5>
+							<p>Let, Love and Live LLC</p>
+							<h6>Areas of Expertise</h6>
+							<Badge pill bg="light" text="dark">
+								Family Law
+							</Badge>{' '}
+							<Badge pill bg="light" text="dark">
+    							Criminal Law
+  							</Badge>{' '}
+						</div>
 					</Card.Body>
 				</Card>
 				<Card className={styles.smallCard}>
@@ -26,9 +42,20 @@ const lawyerDashboard = () => {
 				<Card className={styles.bigCard}>
 					<Card.Body>
 						<Card.Title>Case brief</Card.Title>
-						<Card.Text>
-							blablabla
-						</Card.Text>
+						<Form.Control className={styles.briefTextDisplay} type="text" placeholder="Readonly input here..." plaintext readOnly />
+						<Button variant="secondary">Edit</Button>{' '}
+					</Card.Body>
+				</Card>
+			</div>
+			<div className={styles.rowContainer}>
+				<Card className={styles.bigCard}>
+					<Card.Body>
+						<Card.Title>Case brief</Card.Title>
+						<Form.Control className={styles.briefTextDisplay}
+							as="textarea"
+							placeholder="Please insert your brief here"
+						/>
+						<Button variant="secondary">Save</Button>{' '}
 					</Card.Body>
 				</Card>
 			</div>

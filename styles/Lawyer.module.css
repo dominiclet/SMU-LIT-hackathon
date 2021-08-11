@@ -40,3 +40,16 @@
 	text-align: center;
 	margin-top: 40px;
 }
+
+.personInfo {
+	width: 100%;
+	justify-content:center;
+}
+
+.briefTextDisplay {
+	height: 340px;
+	background-color: #f1e8de;
+	border-color: #f0eae4;
+	padding: 10px;
+	margin-bottom: 10px;
+}
