@@ -29,3 +29,8 @@ a {
   background-color: #e2cbb0;
   color: white;
 }
+
+/* Material UI */
+.MuiPaper-root {
+  background-color: #eae7dc !important;
+}
