@@ -37,11 +37,11 @@ def dbtest():
 Fetches client data
 Returns JSON object
 """
-@app.route("/clientData", methods=["GET"])
-def client_data():
+@app.route("/clientData/<id>", methods=["GET"])
+def client_data(id):
 	with sqlite3.connect("vivek.db") as db:
 		cur = db.cursor()
-		data = cur.execute("SELECT * FROM client WHERE id = 1;")
+		data = cur.execute(f"SELECT * FROM client NATURAL JOIN preferences WHERE id = {id}")
 		user = data.fetchone()
 		json_data = {
 			"id": user[0],
@@ -50,13 +50,28 @@ def client_data():
 			"gender": user[3],
 			"phone": user[4],
 			"email": user[5],
-			"password": user[6]
+			"password": user[6],
+			"brief": user[10]
 		}
 		return jsonify(json_data)
 
+"""
+Fetches array of clients of lawyer
+Returns the JSON barebones representation of a client
+"""
+@app.route("/getClientList", methods=["GET"])
+@jwt_required()
+def client_list():
+	id = get_jwt_identity()
+	with sqlite3.connect("vivek.db") as db:
+		cur = db.cursor()
+		data = cur.execute(f"SELECT * FROM lawyer WHERE id = {id};")
+		user = data.fetchone()
+		return jsonify(user[7]), 200
 
 """
 For logging in user
+Returns a jwt token for future client use
 """
 @app.route("/login", methods=["POST"])
 def login():
