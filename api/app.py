@@ -41,7 +41,7 @@ Returns JSON object
 def client_data(id):
 	with sqlite3.connect("vivek.db") as db:
 		cur = db.cursor()
-		data = cur.execute(f"SELECT * FROM client NATURAL JOIN preferences WHERE id = {id}")
+		data = cur.execute(f"SELECT * FROM client NATURAL JOIN preferences WHERE id = {id};")
 		user = data.fetchone()
 		json_data = {
 			"id": user[0],
@@ -51,9 +51,19 @@ def client_data(id):
 			"phone": user[4],
 			"email": user[5],
 			"password": user[6],
-			"brief": user[10]
+			"progress": user[7],
+			"brief": user[11]
 		}
 		return jsonify(json_data)
+
+"""
+Fetches logged-in client data
+"""
+@app.route("/currClientData", methods=["GET"])
+@jwt_required()
+def curr_client_data():
+	id = get_jwt_identity()
+	return client_data(id)
 
 """
 Fetches array of clients of lawyer
@@ -68,6 +78,36 @@ def client_list():
 		data = cur.execute(f"SELECT * FROM lawyer WHERE id = {id};")
 		user = data.fetchone()
 		return jsonify(user[7]), 200
+
+"""
+Fetches lawyer data
+Returns JSON object
+"""
+@app.route("/lawyerData/<id>", methods=["GET"])
+def lawyer_data(id):
+	with sqlite3.connect("vivek.db") as db:
+		cur = db.cursor()
+		data = cur.execute(f"SELECT * FROM lawyer WHERE id = {id};")
+		user = data.fetchone()
+		json_data = {
+			"id": user[0],
+			"name": user[1],
+			"age": user[2],
+			"gender": user[3],
+			"phone": user[4],
+			"email": user[5],
+			"password": user[6],
+			"firm": user[8]
+		}
+		return jsonify(json_data)
+
+"""
+Editing case brief
+"""
+
+"""
+Moving on to next stage (by accepting lawyer or completing case)
+"""
 
 """
 For logging in user
