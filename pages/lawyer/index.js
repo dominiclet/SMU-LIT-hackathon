@@ -2,30 +2,53 @@ import LawyerDashboard from "../../components/LawyerDashboard";
 import styles from "../../styles/Lawyer.module.css";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { apiRoot } from "../../config";
 
 const lawyerDashboardPage = () => {
-	return (
-		<Tab.Container defaultActiveKey="first">
-			<div className={styles.mainContainer}>
-				<Nav variant="pills" className={styles.navbarContainer}>
-					<Nav.Item className={styles.navItem}>
-						<Nav.Link eventKey="first">Client 1</Nav.Link>
-					</Nav.Item>
-					<Nav.Item>
-						<Nav.Link eventKey="second">Client 2</Nav.Link>
-					</Nav.Item>
-				</Nav>
-				<Tab.Content>
-					<Tab.Pane eventKey="first">
-						<LawyerDashboard clientName="Client 1" />
-					</Tab.Pane>
-					<Tab.Pane eventKey="second">
-						<LawyerDashboard clientName="Client 2" />
-					</Tab.Pane>
-				</Tab.Content>
+	const [clientList, setClientList] = useState();
+
+	useEffect(() => {
+		axios.get(apiRoot + "/getClientList", {
+			headers: {'Authorization': 'Bearer ' + localStorage.getItem("jwt-token")}
+		}).then(res => {
+			setClientList(JSON.parse(res.data));
+		})
+	}, []);
+
+	if (clientList) {
+		return (
+			<Tab.Container defaultActiveKey={0}>
+				<div className={styles.mainContainer}>
+					<Nav variant="pills" className={styles.navbarContainer}>
+						{clientList.map((client, index) => {
+							return (
+								<Nav.Item className={styles.navItem}>
+									<Nav.Link eventKey={index}>{client.name}</Nav.Link>
+								</Nav.Item>
+							);
+						})}
+					</Nav>
+					<Tab.Content>
+						{clientList.map((client, index) => {
+							return (
+								<Tab.Pane eventKey={index}>
+									<LawyerDashboard clientId={client.id} />
+								</Tab.Pane>
+							)
+						})}
+					</Tab.Content>
+				</div>
+			</Tab.Container>
+		);
+	} else {
+		return (
+			<div>
+				Loading...
 			</div>
-		</Tab.Container>
-	);
+		);
+	}
 }
 
 export default lawyerDashboardPage
