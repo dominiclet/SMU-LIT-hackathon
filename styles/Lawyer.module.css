@@ -53,6 +53,14 @@
 	height: 70%;
 }
 
+.personInfo > p {
+	margin-bottom: 5px;
+}
+
+.personInfo > h6 {
+	margin-bottom: 5px;
+}
+
 /* Vertical Nav styling */
 .navbarContainer {
 	display: flex;

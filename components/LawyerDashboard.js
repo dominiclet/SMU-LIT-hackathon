@@ -1,8 +1,22 @@
 import styles from "../styles/Lawyer.module.css";
 import Card from "react-bootstrap/Card";
+import Image from 'react-bootstrap/Image';
+import Badge from 'react-bootstrap/Badge';
 import GoogleMapReact from 'google-map-react';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { apiRoot } from "../config";
 
 const LawyerDashboard = (props) => {
+	// State to store data of clientData
+	const [clientData, setClientData] = useState();
+	
+	useEffect(() => {
+		axios.get(apiRoot + "/clientData")
+			.then(res => {
+				setClientData(res.data);
+			});
+	}, []);
 	
 
 	return (
@@ -11,9 +25,18 @@ const LawyerDashboard = (props) => {
 				<Card className={styles.smallCard}>
 					<Card.Body>
 						<Card.Title>Client's profile</Card.Title>
-						<Card.Text>
-							Profile info of {props.clientName}
-						</Card.Text>
+						{ !clientData ? "Loading..." : 
+							<div className={styles.personInfo}>
+								<Image src="../../blankimage.svg" roundedCircle />
+								<h5>{clientData.name}</h5>
+								<h6>Gender</h6>
+								<p>{clientData.gender}</p>
+								<h6>Email</h6>
+								<p>{clientData.email}</p>
+								<h6>Contact no.</h6>
+								<p>{clientData.phone}</p>
+							</div>
+						}
 					</Card.Body>
 				</Card>
 				<Card className={styles.smallCard}>
