@@ -62,8 +62,23 @@ Fetches logged-in client data
 @app.route("/currClientData", methods=["GET"])
 @jwt_required()
 def curr_client_data():
-	id = get_jwt_identity()
-	return client_data(id)
+	name = get_jwt_identity()
+	with sqlite3.connect("vivek.db") as db:
+		cur = db.cursor()
+		data = cur.execute(f"SELECT * FROM client NATURAL JOIN preferences WHERE name = '{name}'")
+		user = data.fetchone()
+		json_data = {
+			"id": user[0],
+			"name": user[1],
+			"age": user[2],
+			"gender": user[3],
+			"phone": user[4],
+			"email": user[5],
+			"password": user[6],
+			"progress": user[7],
+			"brief": user[11]
+		}
+		return jsonify(json_data)
 
 """
 Fetches array of clients of lawyer
@@ -72,10 +87,10 @@ Returns the JSON barebones representation of a client
 @app.route("/getClientList", methods=["GET"])
 @jwt_required()
 def client_list():
-	id = get_jwt_identity()
+	name = get_jwt_identity()
 	with sqlite3.connect("vivek.db") as db:
 		cur = db.cursor()
-		data = cur.execute(f"SELECT * FROM lawyer WHERE id = {id};")
+		data = cur.execute(f"SELECT * FROM lawyer WHERE name = '{name}';")
 		user = data.fetchone()
 		return jsonify(user[7]), 200
 
@@ -121,12 +136,12 @@ Moving on to next stage (by accepting lawyer or completing case)
 @app.route("/incrementStage", methods=["POST"])
 @jwt_required()
 def increment_stage():
-	id = get_jwt_identity()
+	name = get_jwt_identity()
 	with sqlite3.connect("vivek.db") as db:
 		cur = db.cursor()
-		data = cur.execute(f"SELECT progress FROM client WHERE id = {id};")
+		data = cur.execute(f"SELECT progress FROM client WHERE name = '{name}';")
 		progress = data.fetchone()[0]
-		cur.execute(f"UPDATE client SET progress={progress+1} WHERE id={id};")
+		cur.execute(f"UPDATE client SET progress={progress+1} WHERE name='{name}';")
 		db.commit()
 		return "Increment done", 200
 
@@ -136,12 +151,12 @@ Go back to previous stage
 @app.route("/decrementStage", methods=["POST"])
 @jwt_required()
 def decrement_stage():
-	id = get_jwt_identity()
+	name = get_jwt_identity()
 	with sqlite3.connect("vivek.db") as db:
 		cur = db.cursor()
-		data = cur.execute(f"SELECT progress FROM client WHERE id = {id};")
+		data = cur.execute(f"SELECT progress FROM client WHERE name = '{name}';")
 		progress = data.fetchone()[0]
-		cur.execute(f"UPDATE client SET progress={progress-1} WHERE id={id};")
+		cur.execute(f"UPDATE client SET progress={progress-1} WHERE name='{name}';")
 		db.commit()
 		return "Decrement done", 200
 
@@ -151,10 +166,10 @@ Add client to list of clients to be displayed to lawyer to accept/decline
 @app.route("/addClient/<lawyer_id>", methods=["POST"])
 @jwt_required()
 def add_client(lawyer_id):
-	id = get_jwt_identity()
+	name = get_jwt_identity()
 	with sqlite3.connect("vivek.db") as db:
 		cur = db.cursor()
-		name = cur.execute(f"SELECT name FROM client WHERE id={id};").fetchone()[0]
+		name = cur.execute(f"SELECT name FROM client WHERE name='{name}'';").fetchone()[0]
 		data = {
 			"name" : name,
 			"id" : id,
@@ -163,9 +178,9 @@ def add_client(lawyer_id):
 		client_list = json.loads(client_list_str)
 		client_list.append(data)
 		cur.execute(f"UPDATE lawyer SET clients='{json.dumps(client_list)}' WHERE id={lawyer_id};")
-		data = cur.execute(f"SELECT progress FROM client WHERE id = {id};")
+		data = cur.execute(f"SELECT progress FROM client WHERE name = '{name}';")
 		progress = data.fetchone()[0]
-		cur.execute(f"UPDATE client SET progress={progress+1} WHERE id={id};")
+		cur.execute(f"UPDATE client SET progress={progress+1} WHERE name='{name}';")
 		db.commit()
 		return "Client selected lawyer", 200
 
@@ -184,7 +199,7 @@ def login():
 		data = cur.execute(f"SELECT * FROM {user_type} WHERE email = '{email}'")
 		user = data.fetchone()
 		if user and user[6] == password:
-			access_token = create_access_token(identity=user[0])
+			access_token = create_access_token(identity=user[1])
 			return jsonify(access_token=access_token, route=user_type), 200
 		else:
 			return "Bad email or password", 401
@@ -198,7 +213,7 @@ def ping(user_type):
 	# This portion verifies if user is lawyer or client (and that client cannot log in to lawyer site and vice versa)
 	with sqlite3.connect("vivek.db") as db:
 		cur = db.cursor()
-		data = cur.execute(f"SELECT * FROM {user_type} WHERE id = {get_jwt_identity()}")
+		data = cur.execute(f"SELECT * FROM {user_type} WHERE name = '{get_jwt_identity()}'")
 		user = data.fetchone()
 		if user:
 			return "", 200

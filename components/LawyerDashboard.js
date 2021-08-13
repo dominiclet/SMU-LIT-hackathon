@@ -14,6 +14,7 @@ const LawyerDashboard = (props) => {
 	
 	// Fetch individual client data
 	useEffect(() => {
+		console.log(props.clientId);
 		axios.get(apiRoot + `/clientData/${props.clientId}`)
 			.then(res => {
 				setClientData(res.data);
