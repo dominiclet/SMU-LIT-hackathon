@@ -124,7 +124,7 @@ def increment_stage():
 	id = get_jwt_identity()
 	with sqlite3.connect("vivek.db") as db:
 		cur = db.cursor()
-		data = cur.execute(f"SELECT progress from client WHERE id = {id};")
+		data = cur.execute(f"SELECT progress FROM client WHERE id = {id};")
 		progress = data.fetchone()[0]
 		cur.execute(f"UPDATE client SET progress={progress+1} WHERE id={id};")
 		db.commit()
@@ -139,11 +139,35 @@ def decrement_stage():
 	id = get_jwt_identity()
 	with sqlite3.connect("vivek.db") as db:
 		cur = db.cursor()
-		data = cur.execute(f"SELECT progress from client WHERE id = {id};")
+		data = cur.execute(f"SELECT progress FROM client WHERE id = {id};")
 		progress = data.fetchone()[0]
 		cur.execute(f"UPDATE client SET progress={progress-1} WHERE id={id};")
 		db.commit()
 		return "Decrement done", 200
+
+"""
+Add client to list of clients to be displayed to lawyer to accept/decline
+"""
+@app.route("/addClient/<lawyer_id>", methods=["POST"])
+@jwt_required()
+def add_client(lawyer_id):
+	id = get_jwt_identity()
+	with sqlite3.connect("vivek.db") as db:
+		cur = db.cursor()
+		name = cur.execute(f"SELECT name FROM client WHERE id={id};").fetchone()[0]
+		data = {
+			"name" : name,
+			"id" : id,
+		}
+		client_list_str = cur.execute(f"SELECT clients FROM lawyer WHERE id={lawyer_id};").fetchone()[0]
+		client_list = json.loads(client_list_str)
+		client_list.append(data)
+		cur.execute(f"UPDATE lawyer SET clients='{json.dumps(client_list)}' WHERE id={lawyer_id};")
+		data = cur.execute(f"SELECT progress FROM client WHERE id = {id};")
+		progress = data.fetchone()[0]
+		cur.execute(f"UPDATE client SET progress={progress+1} WHERE id={id};")
+		db.commit()
+		return "Client selected lawyer", 200
 
 """
 For logging in user

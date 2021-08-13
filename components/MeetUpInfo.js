@@ -5,7 +5,7 @@ import { InlineWidget } from "react-calendly";
 export const MeetUpInfo = (props) => {
     const showInfo = () => {
         return props.progress == 1;
-}
+    }
     return (
         <Card className={styles.smallCard}>
             {showInfo() && 

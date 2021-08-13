@@ -20,6 +20,19 @@ const SelectionButtons = (props) => {
         });
 	}
 
+    // handle adding client to lawyer's client list
+    const addClient = () => {
+        axios.post(apiRoot + "/addClient/1", 1, {
+            headers: {'Authorization': 'Bearer ' + localStorage.getItem("jwt-token")}
+        }).then(res => {
+			if (res.status == 200) {
+				router.reload();
+			}
+		}).catch(e => {
+            throw e;
+        });
+    }
+
     // handle revert to previous stage
     const revertStage = () => {
 		axios.post(apiRoot + "/decrementStage", 1, {
@@ -49,7 +62,7 @@ const SelectionButtons = (props) => {
                 <div className={clientStyle.selectionButtons}>   
                     <Button variant="outline-secondary">Revert to previous lawyer</Button>
                     <Button variant="outline-success" 
-                        onClick={handleSelect}
+                        onClick={addClient}
                         >
                             Select this lawyer
                     </Button>
