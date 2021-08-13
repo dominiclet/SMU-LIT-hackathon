@@ -41,7 +41,7 @@ Returns JSON object
 def client_data(id):
 	with sqlite3.connect("vivek.db") as db:
 		cur = db.cursor()
-		data = cur.execute(f"SELECT * FROM client NATURAL JOIN preferences WHERE id = {id}")
+		data = cur.execute(f"SELECT * FROM client NATURAL JOIN preferences WHERE id = {id};")
 		user = data.fetchone()
 		json_data = {
 			"id": user[0],
@@ -51,9 +51,19 @@ def client_data(id):
 			"phone": user[4],
 			"email": user[5],
 			"password": user[6],
-			"brief": user[10]
+			"progress": user[7],
+			"brief": user[11]
 		}
 		return jsonify(json_data)
+
+"""
+Fetches logged-in client data
+"""
+@app.route("/currClientData", methods=["GET"])
+@jwt_required()
+def curr_client_data():
+	id = get_jwt_identity()
+	return client_data(id)
 
 """
 Fetches array of clients of lawyer
@@ -68,6 +78,96 @@ def client_list():
 		data = cur.execute(f"SELECT * FROM lawyer WHERE id = {id};")
 		user = data.fetchone()
 		return jsonify(user[7]), 200
+
+"""
+Fetches lawyer data
+Returns JSON object
+"""
+@app.route("/lawyerData/<id>", methods=["GET"])
+def lawyer_data(id):
+	with sqlite3.connect("vivek.db") as db:
+		cur = db.cursor()
+		data = cur.execute(f"SELECT * FROM lawyer WHERE id = {id};")
+		user = data.fetchone()
+		json_data = {
+			"id": user[0],
+			"name": user[1],
+			"age": user[2],
+			"gender": user[3],
+			"phone": user[4],
+			"email": user[5],
+			"password": user[6],
+			"firm": user[8]
+		}
+		return jsonify(json_data)
+
+"""
+Editing case brief
+"""
+@app.route("/editCaseBrief", methods=["POST"])
+@jwt_required()
+def edit_case_brief():
+	id = get_jwt_identity()
+	brief_data = request.json.get("brief")
+	with sqlite3.connect("vivek.db") as db:
+		cur = db.cursor()
+		cur.execute(f"UPDATE preferences SET brief='{brief_data}' WHERE id={id};")
+		db.commit()
+		return "Brief updated", 200
+
+"""
+Moving on to next stage (by accepting lawyer or completing case)
+"""
+@app.route("/incrementStage", methods=["POST"])
+@jwt_required()
+def increment_stage():
+	id = get_jwt_identity()
+	with sqlite3.connect("vivek.db") as db:
+		cur = db.cursor()
+		data = cur.execute(f"SELECT progress FROM client WHERE id = {id};")
+		progress = data.fetchone()[0]
+		cur.execute(f"UPDATE client SET progress={progress+1} WHERE id={id};")
+		db.commit()
+		return "Increment done", 200
+
+"""
+Go back to previous stage
+"""
+@app.route("/decrementStage", methods=["POST"])
+@jwt_required()
+def decrement_stage():
+	id = get_jwt_identity()
+	with sqlite3.connect("vivek.db") as db:
+		cur = db.cursor()
+		data = cur.execute(f"SELECT progress FROM client WHERE id = {id};")
+		progress = data.fetchone()[0]
+		cur.execute(f"UPDATE client SET progress={progress-1} WHERE id={id};")
+		db.commit()
+		return "Decrement done", 200
+
+"""
+Add client to list of clients to be displayed to lawyer to accept/decline
+"""
+@app.route("/addClient/<lawyer_id>", methods=["POST"])
+@jwt_required()
+def add_client(lawyer_id):
+	id = get_jwt_identity()
+	with sqlite3.connect("vivek.db") as db:
+		cur = db.cursor()
+		name = cur.execute(f"SELECT name FROM client WHERE id={id};").fetchone()[0]
+		data = {
+			"name" : name,
+			"id" : id,
+		}
+		client_list_str = cur.execute(f"SELECT clients FROM lawyer WHERE id={lawyer_id};").fetchone()[0]
+		client_list = json.loads(client_list_str)
+		client_list.append(data)
+		cur.execute(f"UPDATE lawyer SET clients='{json.dumps(client_list)}' WHERE id={lawyer_id};")
+		data = cur.execute(f"SELECT progress FROM client WHERE id = {id};")
+		progress = data.fetchone()[0]
+		cur.execute(f"UPDATE client SET progress={progress+1} WHERE id={id};")
+		db.commit()
+		return "Client selected lawyer", 200
 
 """
 For logging in user

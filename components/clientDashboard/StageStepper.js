@@ -2,7 +2,6 @@ import { useState} from 'react';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import clientStyle from '../../styles/Client.module.css';
 
@@ -24,17 +23,14 @@ const getStepContent = (stepIndex) => {
             return "Leave a review etc."
     }
 }
-const StageStepper = () => {
-    const [activeStep, setActiveStep] = useState(0)
+const StageStepper = (props) => {
+    const [activeStep, setActiveStep] = useState(props.progress)
     const steps = getSteps()
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1)
     }
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1)
-    }
-    const handleReset = () => {
-        setActiveStep(0)
     }
     return (
         <div className={clientStyle.root}>
