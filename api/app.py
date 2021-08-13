@@ -104,10 +104,46 @@ def lawyer_data(id):
 """
 Editing case brief
 """
+@app.route("/editCaseBrief", methods=["POST"])
+@jwt_required()
+def edit_case_brief():
+	id = get_jwt_identity()
+	brief_data = request.json.get("brief")
+	with sqlite3.connect("vivek.db") as db:
+		cur = db.cursor()
+		cur.execute(f"UPDATE preferences SET brief='{brief_data}' WHERE id={id};")
+		db.commit()
+		return "Brief updated", 200
 
 """
 Moving on to next stage (by accepting lawyer or completing case)
 """
+@app.route("/incrementStage", methods=["POST"])
+@jwt_required()
+def increment_stage():
+	id = get_jwt_identity()
+	with sqlite3.connect("vivek.db") as db:
+		cur = db.cursor()
+		data = cur.execute(f"SELECT progress from client WHERE id = {id};")
+		progress = data.fetchone()[0]
+		cur.execute(f"UPDATE client SET progress={progress+1} WHERE id={id};")
+		db.commit()
+		return "Increment done", 200
+
+"""
+Go back to previous stage
+"""
+@app.route("/decrementStage", methods=["POST"])
+@jwt_required()
+def decrement_stage():
+	id = get_jwt_identity()
+	with sqlite3.connect("vivek.db") as db:
+		cur = db.cursor()
+		data = cur.execute(f"SELECT progress from client WHERE id = {id};")
+		progress = data.fetchone()[0]
+		cur.execute(f"UPDATE client SET progress={progress-1} WHERE id={id};")
+		db.commit()
+		return "Decrement done", 200
 
 """
 For logging in user

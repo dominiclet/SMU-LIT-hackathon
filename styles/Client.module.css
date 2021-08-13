@@ -23,6 +23,12 @@
   margin-bottom: 40px;
 }
 
+.singleButton {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 40px;
+}
+
 .outerContainer {
   width: 1000px;
   display: flex;

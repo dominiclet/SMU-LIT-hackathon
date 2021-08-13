@@ -14,7 +14,9 @@ const clientDashboard = () => {
 	const [clientData, setClientData] = useState();
 
 	useEffect(() => {
-		axios.get(apiRoot + "/clientData/1").then(res => {
+		axios.get(apiRoot + "/currClientData", {
+			headers: {'Authorization': 'Bearer ' + localStorage.getItem("jwt-token")}
+		}).then(res => {
 			setClientData(res.data);
 		})
 	}, [])
@@ -23,7 +25,7 @@ const clientDashboard = () => {
 		return (
 			<div className={styles.outerContainer}>
 				<StageStepper progress = {clientData.progress}/>
-				<SelectionButtons/>
+				<SelectionButtons progress = {clientData.progress}/>
 				<div className={styles.rowContainer}>
 					<LawyerProfile/>
 					<MeetUpInfo progress = {clientData.progress}/>

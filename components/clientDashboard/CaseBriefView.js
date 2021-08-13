@@ -3,12 +3,33 @@ import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
+import axios from 'axios';
+import { apiRoot } from '../../config';
+import { useRouter } from 'next/dist/client/router';
 import dynamic from 'next/dynamic';
 
 export const CaseBriefView = (props) => {
-
+    const router = useRouter();
     const [editing, setEditing] = useState(0);
     const [brief, setBrief] = useState(props.brief);
+
+    const handleEdit = () => {
+        setEditing(1);
+    }
+
+    const handleSave = () => {
+        setEditing(0);
+        const data = { "brief": brief}
+		axios.post(apiRoot + "/editCaseBrief", data, {
+            headers: {'Authorization': 'Bearer ' + localStorage.getItem("jwt-token")}
+        }).then(res => {
+			if (res.status == 200) {
+				return;
+			}
+		}).catch(e => {
+            throw e;
+        });
+    }
 
     return (
         <Card className={styles.bigCard}>
@@ -16,8 +37,8 @@ export const CaseBriefView = (props) => {
                 <Card.Title>Case brief</Card.Title>
                 {editing===0 && 
                     <div>
-                        <Form.Control className={styles.briefTextDisplay} type="text" placeholder={brief} plaintext readOnly />
-                        <Button variant="secondary" onChange={() => {setEditing(1); window.location.reload()}}>Edit</Button>{' '}
+                        <Form.Control className={styles.briefTextDisplay} type="text" placeholder={brief} plaintext readOnly/>
+                        <Button variant="secondary" onClick={handleEdit}>Edit</Button>{' '}
                     </div>
                 }
 
@@ -25,9 +46,10 @@ export const CaseBriefView = (props) => {
                     <div>
                         <Form.Control className={styles.briefTextDisplay}
                             as="textarea"
-                            placeholder={brief}
+                            defaultValue={brief}
+                            onChange={e => setBrief(e.target.value)}
                         />
-                        <Button variant="secondary" onChange={() => {setEditing(1); window.location.reload()}}>Save</Button>{' '}
+                        <Button variant="secondary" onClick={handleSave}>Save</Button>{' '}
                     </div>
                 }
 
