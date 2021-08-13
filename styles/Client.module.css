@@ -27,8 +27,8 @@
 	display: flex;
 	margin: auto;
 	flex-direction: column;
-	margin-top: 100px;
-	margin-bottom: 100px;
+	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
 .rowContainer {
@@ -81,4 +81,13 @@
 .briefTextDisplay:focus {
 	background-color: #eee9e2;
 	box-shadow: none;
+}
+
+.logoutIcon {
+	float: right;
+	margin-right: 10px;
+}
+
+.logoutIcon:hover {
+	cursor: pointer;
 }
