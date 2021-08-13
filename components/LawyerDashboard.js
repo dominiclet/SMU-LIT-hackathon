@@ -11,8 +11,9 @@ const LawyerDashboard = (props) => {
 	// State to store data of clientData
 	const [clientData, setClientData] = useState();
 	
+	// Fetch individual client data
 	useEffect(() => {
-		axios.get(apiRoot + "/clientData")
+		axios.get(apiRoot + `/clientData/${props.clientId}`)
 			.then(res => {
 				setClientData(res.data);
 			});
@@ -60,7 +61,7 @@ const LawyerDashboard = (props) => {
 					<Card.Body>
 						<Card.Title>Case brief</Card.Title>
 						<Card.Text>
-							blablabla
+							{clientData ? clientData.brief : "Loading..."}
 						</Card.Text>
 					</Card.Body>
 				</Card>
