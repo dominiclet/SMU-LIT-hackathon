@@ -61,6 +61,15 @@
 	margin-bottom: 5px;
 }
 
+.logoutIcon {
+	float: right;
+	margin: 10px;
+}
+
+.logoutIcon:hover {
+	cursor: pointer;
+}
+
 /* Vertical Nav styling */
 .navbarContainer {
 	display: flex;
