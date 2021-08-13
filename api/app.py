@@ -88,3 +88,19 @@ def login():
 			return jsonify(access_token=access_token, route=user_type), 200
 		else:
 			return "Bad email or password", 401
+
+"""
+For pinging of server for authentication
+"""
+@app.route("/ping/<user_type>", methods=['POST'])
+@jwt_required()
+def ping(user_type):
+	# This portion verifies if user is lawyer or client (and that client cannot log in to lawyer site and vice versa)
+	with sqlite3.connect("vivek.db") as db:
+		cur = db.cursor()
+		data = cur.execute(f"SELECT * FROM {user_type} WHERE id = {get_jwt_identity()}")
+		user = data.fetchone()
+		if user:
+			return "", 200
+		else:
+			return "Forbidden page", 403

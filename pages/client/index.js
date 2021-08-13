@@ -6,6 +6,7 @@ import { MeetUpInfo } from "../../components/MeetUpInfo";
 import { CaseBriefView } from "../../components/clientDashboard/CaseBriefView";
 import CaseBriefEdit from "../../components/CaseBriefEdit";
 import AverageCost from "../../components/AverageCost";
+import withAuthClient from "../../components/authenticationHelpers/withAuthClient";
 
 const clientDashboard = () => {
 	return (
@@ -29,4 +30,4 @@ const clientDashboard = () => {
 	)
 }
 
-export default clientDashboard
+export default withAuthClient(clientDashboard)

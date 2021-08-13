@@ -6,6 +6,7 @@ import GoogleMapReact from 'google-map-react';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { apiRoot } from "../config";
+import StageStepperLawyer from "./clientDashboard/StageStepperLawyer";
 
 const LawyerDashboard = (props) => {
 	// State to store data of clientData
@@ -22,6 +23,7 @@ const LawyerDashboard = (props) => {
 
 	return (
 		<div className={styles.outerContainer}>
+			<StageStepperLawyer stage={props.stage} />
 			<div className={styles.rowContainer}>
 				<Card className={styles.smallCard}>
 					<Card.Body>

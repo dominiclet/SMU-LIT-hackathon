@@ -5,6 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { apiRoot } from "../../config";
+import withAuthLawyer from "../../components/authenticationHelpers/withAuthLawyer";
 
 const lawyerDashboardPage = () => {
 	const [clientList, setClientList] = useState();
@@ -34,7 +35,7 @@ const lawyerDashboardPage = () => {
 						{clientList.map((client, index) => {
 							return (
 								<Tab.Pane eventKey={index}>
-									<LawyerDashboard clientId={client.id} />
+									<LawyerDashboard clientId={client.id} stage={client.stage} />
 								</Tab.Pane>
 							)
 						})}
@@ -51,4 +52,4 @@ const lawyerDashboardPage = () => {
 	}
 }
 
-export default lawyerDashboardPage
+export default withAuthLawyer(lawyerDashboardPage)
