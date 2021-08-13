@@ -219,3 +219,20 @@ def ping(user_type):
 			return "", 200
 		else:
 			return "Forbidden page", 403
+
+
+"""
+For registration of client (AND PERHAPS NLP)
+"""
+@app.route("/register", methods=['POST'])
+def register():
+	#data = request.json
+	#for key, val in data.items():
+	#	exec(key + "=" + val)
+	#print(name)
+	#if data.get("areaOfLaw") != "Not sure":
+	#	# NLP not needed
+	#	with sqlite3.connect("vivek.db") as db:
+	#		cur = db.cursor()
+	#		res = cur.execute(f"INSERT INTO client (name, age, gender, phone, email, password, progress) VALUES ('{name}', {age}, '{gender}', '{mobile}', '{email}', '{password}', 1);")
+	#		cur.execute(f"INSERT INTO preferences (languages, lawyer_gender, urgent, brief, category) VALUES ('{languages}', '{lawyerGender}', '{urgent}', '{caseDescription}', '{areaOfLaw}');")
