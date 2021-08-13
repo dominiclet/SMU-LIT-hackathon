@@ -10,6 +10,12 @@
   margin-right: 1;
 }
 
+.heading {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
 .instructions {
   display: flex;
   align-items: center;

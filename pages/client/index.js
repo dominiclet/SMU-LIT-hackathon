@@ -24,6 +24,7 @@ const clientDashboard = () => {
 	if (clientData) {
 		return (
 			<div className={styles.outerContainer}>
+				<h1 className={styles.heading}>Hello, {clientData.name}</h1>
 				<StageStepper progress = {clientData.progress}/>
 				<SelectionButtons progress = {clientData.progress}/>
 				<div className={styles.rowContainer}>
