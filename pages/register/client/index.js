@@ -181,14 +181,6 @@ const registerPage = () => {
         "Wrong registration token.";
       noError = false;
     }
-			// TODO 
-			axios.post(apiRoot + "/register/client", data)
-				.then(res => {
-					if (res.status == 200) {
-						alert("Registration successful");
-						router.push("/login");
-					}
-				})
 
     if (noError) {
       const data = {
@@ -207,7 +199,7 @@ const registerPage = () => {
         caseDescription: document.getElementById("caseDescription").value,
       };
 
-      axios.post(apiRoot + "/register", data).then((res) => {
+      axios.post(apiRoot + "/register/client", data).then((res) => {
         if (res.status == 200) {
           alert("Registration successful");
           router.push("/login");
@@ -287,11 +279,10 @@ const registerPage = () => {
           <Form.Label>Urgency of Request</Form.Label>
           <Form.Control as="select">
             <option value={0}>Select level of urgency</option>
-            <option value={"Urgent (as soon as possible)"}>
+            <option value={1}>
               Urgent (as soon as possible)
             </option>
-            <option value={"Within 6 months"}>Within 6 months</option>
-            <option value={"Within 1 year"}>Within 1 year</option>
+            <option value={2}>Not urgent</option>
           </Form.Control>
           <Form.Text id="urgencyNote" style={warningStyle}></Form.Text>
         </Form.Group>
@@ -367,7 +358,7 @@ const registerPage = () => {
         <Form.Group controlId="registerToken" className={styles.formEntry}>
           <Form.Label>Token</Form.Label>
           <Form.Control
-            type="password"
+            type="text"
             placeholder="Enter registration token"
           />
           <Form.Text id="tokenNote" style={warningStyle}></Form.Text>
