@@ -208,25 +208,6 @@ def next_lawyer():
 		return "Decrement done", 200
 
 """
-Display previous or next lawyer
-"""
-@app.route("/cycleLawyer", methods=["POST"])
-@jwt_required()
-def cycle_lawyer():
-	name = get_jwt_identity()
-	#action = request.json.get("action")
-	with sqlite3.connect("vivek.db") as db:
-		cur = db.cursor()
-		data = cur.execute(f"SELECT allocated_lawyer FROM client WHERE name='{name}';")
-		allocated = data.fetchone()[0]
-		#if action == 1:
-			#cur.execute(f"UPDATE client SET allocated_lawyer={allocated_lawyer+1} WHERE name='{name}';")
-		#if action == 0:
-		cur.execute(f"UPDATE client SET allocated_lawyer={allocated-1} WHERE name='{name}';")
-		db.commit()
-		return "Done", 200
-
-"""
 Add client to list of clients to be displayed to lawyer to accept/decline
 """
 @app.route("/addClient/<lawyer_id>", methods=["POST"])
@@ -239,14 +220,15 @@ def add_client(lawyer_id):
 		data = {
 			"name" : name,
 			"id" : id,
+			"stage" : 0,
 		}
 		client_list_str = cur.execute(f"SELECT clients FROM lawyer WHERE id={lawyer_id};").fetchone()[0]
 		client_list = json.loads(client_list_str)
 		client_list.append(data)
 		cur.execute(f"UPDATE lawyer SET clients='{json.dumps(client_list)}' WHERE id={lawyer_id};")
-		data = cur.execute(f"SELECT progress FROM client WHERE name = '{name}';")
-		progress = data.fetchone()[0]
-		cur.execute(f"UPDATE client SET progress={progress+1} WHERE name='{name}';")
+		#data = cur.execute(f"SELECT progress FROM client WHERE name = '{name}';")
+		#progress = data.fetchone()[0]
+		#cur.execute(f"UPDATE client SET progress={progress+1} WHERE name='{name}';")
 		db.commit()
 		return "Client selected lawyer", 200
 
