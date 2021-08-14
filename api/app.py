@@ -226,9 +226,9 @@ def add_client(lawyer_id):
 		client_list = json.loads(client_list_str)
 		client_list.append(data)
 		cur.execute(f"UPDATE lawyer SET clients='{json.dumps(client_list)}' WHERE id={lawyer_id};")
-		#data = cur.execute(f"SELECT progress FROM client WHERE name = '{name}';")
-		#progress = data.fetchone()[0]
-		#cur.execute(f"UPDATE client SET progress={progress+1} WHERE name='{name}';")
+		data = cur.execute(f"SELECT progress FROM client WHERE name = '{name}';")
+		progress = data.fetchone()[0]
+		cur.execute(f"UPDATE client SET progress={progress+1} WHERE name='{name}';")
 		db.commit()
 		return "Client selected lawyer", 200
 

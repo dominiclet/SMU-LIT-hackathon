@@ -3,11 +3,9 @@ import clientStyle from '../../styles/Client.module.css'
 import axios from 'axios';
 import { apiRoot } from '../../config';
 import { useRouter } from 'next/dist/client/router';
-import { useState } from 'react';
 
 const SelectionButtons = (props) => {
     const router = useRouter();
-    const [disableButtons, setDisableButtons] = useState(false);
 
     // handle select lawyer
     const handleSelect = () => {
@@ -28,7 +26,7 @@ const SelectionButtons = (props) => {
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem("jwt-token") }
         }).then(res => {
             if (res.status == 200) {
-                setDisableButtons(true);
+                router.reload();
             }
         }).catch(e => {
             throw e;
@@ -78,28 +76,27 @@ const SelectionButtons = (props) => {
     const showSelectionButtons = () => {
         return props.progress == 0;
     }
-    const completeCase = () => {
+    const pending = () => {
         return props.progress == 1;
     }
-    const goBack = () => {
+    const completeCase = () => {
         return props.progress == 2;
     }
-    const pending = () => {
-        return disableButtons;
+    const goBack = () => {
+        return props.progress == 3;
     }
 
     return (
         <div>
             {showSelectionButtons() &&
                 <div className={clientStyle.selectionButtons}>
-                    <Button variant="outline-secondary" onClick={prevLawyer} disabled={disableButtons}>Revert to previous lawyer</Button>
+                    <Button variant="outline-secondary" onClick={prevLawyer}>Revert to previous lawyer</Button>
                     <Button variant="outline-success"
                         onClick={addClient}
-                        disabled={disableButtons}
                     >
                         Select this lawyer
                     </Button>
-                    <Button variant="outline-danger" onClick={nextLawyer} disabled={disableButtons}>Look for another lawyer</Button>
+                    <Button variant="outline-danger" onClick={nextLawyer}>Look for another lawyer</Button>
                 </div>
             }
             {completeCase() &&
@@ -111,9 +108,6 @@ const SelectionButtons = (props) => {
                 <div className={clientStyle.singleButton}>
                     <Button variant="outline-primary" onClick={revertStage}>Go back to previous stage</Button>
                 </div>
-            }
-            {pending() &&
-                <h5 className={clientStyle.text}>Buttons disabled, pending lawyer approval</h5>
             }
         </div>
     )

@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useState } from 'react';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
@@ -8,6 +8,7 @@ import clientStyle from '../../styles/Client.module.css';
 const getSteps = () => {
     return [
         "Finding you a lawyer",
+        "Pending lawyer approval",
         "Set up a meeting with your lawyer",
         "Case completed"
     ];
@@ -15,11 +16,13 @@ const getSteps = () => {
 
 const getStepContent = (stepIndex) => {
     switch (stepIndex) {
-        case 0 :
+        case 0:
             return "Here's a lawyer we have matched for you! Do take a look and accept the lawyer if you are comfortable.";
-        case 1 :
+        case 1:
+            return "We are waiting for the lawyer to accept your case. In the meantime, you can still edit your case brief.";
+        case 2:
             return "You should be reaching out to the lawyer to set a meeting, co-ordinate and provide all the necessary information related to the case.";
-        case 2 : 
+        case 3:
             return "Leave a review and provide us with relevant information to make the next experience better!"
     }
 }
