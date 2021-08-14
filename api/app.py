@@ -122,10 +122,12 @@ Editing case brief
 @app.route("/editCaseBrief", methods=["POST"])
 @jwt_required()
 def edit_case_brief():
-	id = get_jwt_identity()
+	name = get_jwt_identity()
 	brief_data = request.json.get("brief")
 	with sqlite3.connect("vivek.db") as db:
 		cur = db.cursor()
+		data = cur.execute(f"SELECT id FROM client WHERE name='{name}';")
+		id = data.fetchone()[0]
 		cur.execute(f"UPDATE preferences SET brief='{brief_data}' WHERE id={id};")
 		db.commit()
 		return "Brief updated", 200
@@ -226,6 +228,7 @@ For registration of client (AND PERHAPS NLP)
 """
 @app.route("/register", methods=['POST'])
 def register():
+	pass
 	#data = request.json
 	#for key, val in data.items():
 	#	exec(key + "=" + val)
