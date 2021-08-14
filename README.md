@@ -8,7 +8,7 @@ Lawmatch bridges this gap by intelligently matching financially needy individual
 Clients who have been referred by LAB would be able to sign up for the platform, ensuring we cater to the most appropriate demographic. By providing access tokens to our legal partners, we ensure the requirement of being financially needy is certain.
 
 ## Matching Algorithm
-- LawMatch uses the following criteria to ensure that our clients are matched to lawyers who best meet their needs: 
+LawMatch uses the following criteria to ensure that our clients are matched to lawyers who best meet their needs: 
 - Lawyer’s expertise 
 - Budget
 - Availability
