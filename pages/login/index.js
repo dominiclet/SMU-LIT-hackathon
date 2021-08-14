@@ -51,7 +51,7 @@ const loginPage = () => {
 		<div className={styles.mainContainer}>
 			<div className={styles.loginContainer}>
 				<div className={styles.logoContainer}>
-					Welcome to Law Tinder!
+					Welcome to Law Match!
 				</div>
 				<div className={styles.inputContainer}>
 					<input className={styles.loginInput} placeholder="Email" type="text" id="email" onKeyPress={handleEnter} />
