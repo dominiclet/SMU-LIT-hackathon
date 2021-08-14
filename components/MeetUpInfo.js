@@ -23,7 +23,8 @@ export const MeetUpInfo = (props) => {
                         >
                         </GoogleMapReact>
                     </div>
-                    <p>469G Bukit Timah Rd, Singapore 259776</p>
+                    <Card.Title >Address</Card.Title>
+                    <Form.Control className={styles.address} plaintext readOnly placeholder="469G Bukit Timah Rd, Singapore 259776" />
                 </Card.Body>
             }
             {!showInfo() &&

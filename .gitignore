@@ -33,3 +33,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+#db
+/api/vivek.db
+/api/__pycache__
