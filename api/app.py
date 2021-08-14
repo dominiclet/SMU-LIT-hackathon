@@ -236,23 +236,6 @@ def ping(user_type):
 			return "Forbidden page", 403
 
 
-"""
-For registration of client (AND PERHAPS NLP)
-"""
-@app.route("/register/client", methods=['POST'])
-def register_client():
-	pass
-	#data = request.json
-	#for key, val in data.items():
-	#	exec(key + "=" + val)
-	#print(name)
-	#if data.get("areaOfLaw") != "Not sure":
-	#	# NLP not needed
-	#	with sqlite3.connect("vivek.db") as db:
-	#		cur = db.cursor()
-	#		res = cur.execute(f"INSERT INTO client (name, age, gender, phone, email, password, progress) VALUES ('{name}', {age}, '{gender}', '{mobile}', '{email}', '{password}', 1);")
-	#		cur.execute(f"INSERT INTO preferences (languages, lawyer_gender, urgent, brief, category) VALUES ('{languages}', '{lawyerGender}', '{urgent}', '{caseDescription}', '{areaOfLaw}');")
-
 
 @app.route("/nlpCase", methods=['POST'])
 def nlp_case():
@@ -330,6 +313,7 @@ def nlp_case():
 	result = model.predict([casedestxt])
 	caselaw = result[0]
 	return caselaw, 200
+
 """
 For registration of lawyer
 """
@@ -349,3 +333,30 @@ def register_lawyer():
 		# insert languages, availability, areas of law into another table
 		db.commit()
 		return "Registered", 200
+
+"""
+For registration of client (AND PERHAPS NLP)
+"""
+@app.route("/register/client", methods=['POST'])
+def register_client():
+	data = request.json
+	name = data.get("name")
+	age = data.get("age")
+	gender = data.get("gender")
+	email = data.get("email")
+	mobile = data.get("mobile")
+	budget = data.get("budget")
+	languages = data.get("languages")
+	lawyerGender = data.get("lawyergender")
+	urgent = data.get("urgent")
+	password = data.get("password")
+	areaOfLaw = data.get("areaOfLaw")
+	caseDescription = data.get("caseDescription")
+	if data.get("areaOfLaw") != "Not sure":
+		# NLP not needed
+		with sqlite3.connect("vivek.db") as db:
+			cur = db.cursor()
+			res = cur.execute(f"INSERT INTO client (name, age, gender, phone, email, password, progress, allocated_lawyer) VALUES ('{name}', {age}, '{gender}', '{mobile}', '{email}', '{password}', 1, 2);")
+			cur.execute(f"INSERT INTO preferences (languages, lawyer_gender, urgent, brief, category) VALUES ('{languages}', '{lawyerGender}', '{urgent}', '{caseDescription}', '{areaOfLaw}');")
+			db.commit()
+			return "Registered", 200
