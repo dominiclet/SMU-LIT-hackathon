@@ -7,3 +7,10 @@
 .formEntry {
 	margin-bottom: 10px;
 }
+
+.genLawResult {
+	font-size: 1.2rem;
+	margin-left: 20px;
+	font-weight: 500;
+	color: rgb(245, 87, 87);
+}
