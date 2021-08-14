@@ -226,6 +226,7 @@ For registration of client (AND PERHAPS NLP)
 """
 @app.route("/register", methods=['POST'])
 def register():
+	pass
 	#data = request.json
 	#for key, val in data.items():
 	#	exec(key + "=" + val)
