@@ -1,34 +1,24 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Problem
+With LAB’s strict legal aid requirements, low bono and pro bono cases are currently taken up through connections with no central space to find such legal help.
 
-## Getting Started
+## Solution
+Lawmatch bridges this gap by intelligently matching financially needy individuals with lawyers who are keen to do pro-bono or low-bono work. 
 
-First, run the development server:
+## Signing Up
+Clients who have been referred by LAB would be able to sign up for the platform, ensuring we cater to the most appropriate demographic. 
+- Matching Algorithm
+- LawMatch uses the following criteria to ensure that our clients are matched to lawyers who best meet their needs: 
+- Lawyer’s expertise 
+- Budget
+- Availability
+- Preferred Languages
+- Gender
+## Natural Language Processing 
+If clients do not know what area of law their issues fall under, our NLP tool is able to identify the area of law by processing the client’s description of their case.
+We used a bag-of-words model. Features were extracted from case law for use in our ML model. We performed NLP by converting filenames and corpuses into a dataframe, followed by text preprocessing using the bag of words algorithm and TF-lDF scoring method . Finally, we performed modelling and obtained the area of law for each corpus.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+##Selecting a Lawyer
+On the clients’ dashboard, statistics regarding the average costs of similar cases are available to them, enabling them to make an informed decision on whether to proceed with engaging the lawyer. 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+By increasing access and providing clearer information, we hope the journey to a more equal and just society is within reach.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
