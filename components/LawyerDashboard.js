@@ -50,7 +50,9 @@ const LawyerDashboard = (props) => {
 
 	return (
 		<div className={styles.outerContainer}>
+			{lawyerData ? 
 			<h1 style={{"textAlign": "center"}}>Hello, {lawyerData.name}</h1>
+			: null}
 			<StageStepperLawyer stage={props.stage} />
 			<div className={styles.selectionButtonsContainer}>
 				<Button variant="outline-danger" onClick={handleRejectClient}>Reject client</Button>
