@@ -93,11 +93,6 @@
   margin-top: 40px;
 }
 
-.personInfo {
-  width: 100%;
-  justify-content: center;
-}
-
 .briefTextDisplay {
   height: 300px;
   background-color: #e7dfd6;
@@ -112,7 +107,6 @@
 	background-color: #e7dfd6;
 	box-shadow: none;
   white-space: pre-line;
-
 }
 
 .briefTextEdit {
@@ -142,6 +136,8 @@
 }
 
 .personInfo {
+  width: 100%;
+  justify-content: center;
   text-align: center;
 }
 
@@ -151,4 +147,9 @@
 
 .personInfo > h6 {
 	margin-bottom: 5px;
+}
+
+.mapContainer {
+	width: 100%;
+	height: 70%;
 }

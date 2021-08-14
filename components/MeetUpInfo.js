@@ -1,5 +1,6 @@
 import styles from '../styles/Client.module.css';
 import Card from 'react-bootstrap/Card';
+import GoogleMapReact from 'google-map-react';
 import { InlineWidget } from "react-calendly";
 
 export const MeetUpInfo = (props) => {
@@ -11,16 +12,16 @@ export const MeetUpInfo = (props) => {
             {showInfo() && 
                 <Card.Body>
                     <Card.Title>Meetup info</Card.Title>
-                    <InlineWidget 
-                    styles={{height: '380px'}} 
-                    prefill={{
-                        email: 'clientemail@tobe.added',
-                        guests: [
-                        'lawyer@email.com'
-                        ],
-                        name: 'Client Name'
-                    }} 
-                    url="https://calendly.com/smu-lit-hackathon/round1" />
+                    <div className={styles.mapContainer}>
+							<GoogleMapReact 
+								defaultCenter={{
+									lat: 1.3188,
+									lng: 103.8172
+								}}
+								defaultZoom={17}
+							>
+							</GoogleMapReact>
+						</div>
                 </Card.Body>
             }
             {!showInfo() &&

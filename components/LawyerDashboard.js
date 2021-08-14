@@ -1,5 +1,6 @@
 import styles from "../styles/Lawyer.module.css";
 import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
 import Image from 'react-bootstrap/Image';
 import Badge from 'react-bootstrap/Badge';
 import GoogleMapReact from 'google-map-react';
@@ -7,6 +8,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { apiRoot } from "../config";
 import StageStepperLawyer from "./clientDashboard/StageStepperLawyer";
+import { style } from "@material-ui/system";
 
 const LawyerDashboard = (props) => {
 	// State to store data of clientData
@@ -31,7 +33,7 @@ const LawyerDashboard = (props) => {
 						<Card.Title>Client's profile</Card.Title>
 						{ !clientData ? "We're on the way! Please hang on..." : 
 							<div className={styles.personInfo}>
-								<Image src="../../blankimage.svg" roundedCircle />
+								<Image className={styles.image} src="../../blankimage.svg" roundedCircle />
 								<h5>{clientData.name}</h5>
 								<h6>Gender</h6>
 								<p>{clientData.gender}</p>
@@ -56,6 +58,8 @@ const LawyerDashboard = (props) => {
 							>
 							</GoogleMapReact>
 						</div>
+						<Card.Title>Address</Card.Title>
+    					<Form.Control className={styles.address} placeholder="469G Bukit Timah Rd, Singapore 259776" />
 					</Card.Body>
 				</Card>
 			</div>
@@ -63,9 +67,9 @@ const LawyerDashboard = (props) => {
 				<Card className={styles.bigCard}>
 					<Card.Body>
 						<Card.Title>Case brief</Card.Title>
-						<Card.Text>
-							{clientData ? clientData.brief : "We're on the way! Please hang on..."}
-						</Card.Text>
+						<div>
+						{clientData ? <Form.Control className={styles.briefTextDisplay} as="textarea" placeholder={clientData.brief} plaintext readOnly/> : "We're on the way! Please hang on..."} 
+                    	</div>
 					</Card.Body>
 				</Card>
 			</div>
