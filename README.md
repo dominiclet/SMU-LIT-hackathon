@@ -1,3 +1,4 @@
+# LawMatch
 ## Problem
 With LAB’s strict legal aid requirements, low bono and pro bono cases are currently taken up through connections with no central space to find such legal help.
 
