@@ -56,10 +56,12 @@ const LawyerDashboard = (props) => {
 				<h1 style={{ "textAlign": "center" }}>Hello, {lawyerData.name}</h1>
 				: null}
 			<StageStepperLawyer stage={props.stage} />
-			<div className={styles.selectionButtonsContainer}>
-				<Button variant="outline-danger" onClick={handleRejectClient}>Reject client</Button>
-				<Button variant="outline-success" onClick={handleAcceptClient}>Accept client</Button>
-			</div>
+			{props.stage == 0 ? 
+				<div className={styles.selectionButtonsContainer}>
+						<Button variant="outline-danger" onClick={handleRejectClient}>Reject client</Button>
+						<Button variant="outline-success" onClick={handleAcceptClient}>Accept client</Button>
+				</div>
+			: null}
 			<div className={styles.rowContainer}>
 				<Card className={styles.smallCard}>
 					<Card.Body>
