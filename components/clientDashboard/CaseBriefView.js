@@ -19,7 +19,7 @@ export const CaseBriefView = (props) => {
 
     const handleSave = () => {
         setEditing(0);
-        const data = { "brief": brief}
+        const data = {"brief": brief}
 		axios.post(apiRoot + "/editCaseBrief", data, {
             headers: {'Authorization': 'Bearer ' + localStorage.getItem("jwt-token")}
         }).then(res => {

@@ -170,11 +170,10 @@ const lawyerRegisterPage = () => {
 				"firm": firm.value,
 				"password": password.value,
 				"areaOfLaw": areaoflaw.value,
-
 			}
 
 			// TODO
-			axios.post(apiRoot + "/register", data)
+			axios.post(apiRoot + "/register/lawyer", data)
 				.then(res => {
 					if (res.status == 200) {
 						alert("Registration successful");

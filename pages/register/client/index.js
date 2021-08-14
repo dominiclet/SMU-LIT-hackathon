@@ -181,6 +181,14 @@ const registerPage = () => {
         "Wrong registration token.";
       noError = false;
     }
+			// TODO 
+			axios.post(apiRoot + "/register/client", data)
+				.then(res => {
+					if (res.status == 200) {
+						alert("Registration successful");
+						router.push("/login");
+					}
+				})
 
     if (noError) {
       const data = {

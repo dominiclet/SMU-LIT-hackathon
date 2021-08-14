@@ -1,3 +1,4 @@
+from os import name
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
@@ -238,8 +239,8 @@ def ping(user_type):
 """
 For registration of client (AND PERHAPS NLP)
 """
-@app.route("/register", methods=['POST'])
-def register():
+@app.route("/register/client", methods=['POST'])
+def register_client():
 	pass
 	#data = request.json
 	#for key, val in data.items():
@@ -329,3 +330,22 @@ def nlp_case():
 	result = model.predict([casedestxt])
 	caselaw = result[0]
 	return caselaw, 200
+"""
+For registration of lawyer
+"""
+@app.route("/register/lawyer", methods=['POST'])
+def register_lawyer():
+	name = request.json.get("name")
+	age = request.json.get("age")
+	gender = request.json.get("gender")
+	mobile = request.json.get("mobile")
+	email = request.json.get("email")
+	password = request.json.get("password")
+	firm = request.json.get("firm")
+
+	with sqlite3.connect("vivek.db") as db:
+		cur = db.cursor()
+		cur.execute(f"INSERT INTO lawyer (name, age, gender, phone, email, password, clients, firm) VALUES ('{name}', '{age}', '{gender}', '{mobile}', '{email}', '{password}', '[]', '{firm}');")
+		# insert languages, availability, areas of law into another table
+		db.commit()
+		return "Registered", 200
