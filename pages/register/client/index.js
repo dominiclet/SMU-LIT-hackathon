@@ -163,7 +163,7 @@ const registerPage = () => {
 			}
 
 			// TODO 
-			axios.post(apiRoot + "/register", data)
+			axios.post(apiRoot + "/register/client", data)
 				.then(res => {
 					if (res.status == 200) {
 						alert("Registration successful");
