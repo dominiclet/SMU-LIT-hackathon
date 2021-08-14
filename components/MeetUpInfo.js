@@ -25,7 +25,11 @@ export const MeetUpInfo = (props) => {
             }
             {!showInfo() &&
                 <Card.Body>
-                    <h3>Meetup info not available at this stage</h3>
+                    <Card.Title>Meetup info</Card.Title>
+                    <Card.Text> The meeting information will be available after you pair with a lawyer. To consider a lawyer, you can think about the following factors:</Card.Text>
+                    <Card.Body>    Does the lawyer's areas of expertise match the work you are looking for?</Card.Body>
+                    <Card.Body>    Is the rates requested acceptable for you?</Card.Body>
+                    <Card.Body>    If you have language preferences, does the lawyer fit them?</Card.Body>
                 </Card.Body>
             }
         </Card>

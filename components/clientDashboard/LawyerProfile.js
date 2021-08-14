@@ -23,7 +23,7 @@ const LawyerProfile = () => {
                         Take a moment to look at our lawyer's information.
                     </Card.Text>
                     <div className={styles.personInfo}>
-                        <Image src="../../blankimage.svg" roundedCircle />
+                        <Image className={styles.image} src="../../blankimage.svg" roundedCircle />
                         <h5>{lawyerData.name}</h5>
                         <p>{lawyerData.firm}</p>
                         <h6>Areas of Expertise</h6>

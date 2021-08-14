@@ -35,21 +35,22 @@ export const CaseBriefView = (props) => {
         <Card className={styles.bigCard}>
             <Card.Body>
                 <Card.Title>Case brief</Card.Title>
+                <Card.Text>Enter brief details about your case here for the lawyer to read</Card.Text>
                 {editing===0 && 
                     <div>
-                        <Form.Control className={styles.briefTextDisplay} type="text" placeholder={brief} plaintext readOnly/>
-                        <Button variant="secondary" onClick={handleEdit}>Edit</Button>{' '}
+                        <Form.Control className={styles.briefTextDisplay} as="textarea" placeholder={brief} plaintext readOnly/>
+                        <Button className={styles.button} variant="secondary" onClick={handleEdit}>Edit</Button>{' '}
                     </div>
                 }
 
                 {editing===1 &&
                     <div>
-                        <Form.Control className={styles.briefTextDisplay}
+                        <Form.Control className={styles.briefTextEdit}
                             as="textarea"
                             defaultValue={brief}
                             onChange={e => setBrief(e.target.value)}
                         />
-                        <Button variant="secondary" onClick={handleSave}>Save</Button>{' '}
+                        <Button className={styles.button} variant="secondary" onClick={handleSave}>Save</Button>{' '}
                     </div>
                 }
 

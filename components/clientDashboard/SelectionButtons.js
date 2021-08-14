@@ -60,23 +60,23 @@ const SelectionButtons = (props) => {
         <div>
             {showSelectionButtons() &&
                 <div className={clientStyle.selectionButtons}>   
-                    <Button variant="outline-secondary">Revert to previous lawyer</Button>
-                    <Button variant="outline-success" 
+                    <Button variant="secondary">Revert to previous lawyer</Button>
+                    <Button variant="success" 
                         onClick={addClient}
                         >
                             Select this lawyer
                     </Button>
-                    <Button variant="outline-danger">Look for another lawyer</Button>
+                    <Button variant="danger">Look for another lawyer</Button>
                 </div>
             }
             {completeCase() &&
                 <div className={clientStyle.singleButton}>
-                    <Button variant="outline-primary" onClick={handleSelect}>Case completed</Button>
+                    <Button variant="primary" onClick={handleSelect}>Case completed</Button>
                 </div>
             }
             {goBack() &&
                 <div className={clientStyle.singleButton}> 
-                    <Button variant="outline-primary" onClick={revertStage}>Go back to previous stage</Button>
+                    <Button variant="primary" onClick={revertStage}>Go back to previous stage</Button>
                 </div>
             }
         </div>
