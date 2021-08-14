@@ -1,23 +1,12 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { apiRoot } from '../../config';
+import { apiRoot } from '../../../config';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import styles from '../../styles/Register.module.css';
+import styles from '../../../styles/Register.module.css';
 
-const registerPage = () => {
-	
-	  const handleToggle = value => {
-		const currentIndex = checked.indexOf(value);
-		const newChecked = [...checked];
-	
-		if (currentIndex === -1) {
-		  newChecked.push(value);
-		} else {
-		  newChecked.splice(currentIndex, 1);
-		}
-		setChecked(newChecked);
-	  };
+const lawyerRegisterPage = () => {
+
 	const router = useRouter();
 
 	// For descriptions in the form, reduces font size
@@ -52,23 +41,51 @@ const registerPage = () => {
 		const password = document.getElementById("password");
 		const confirmPw = document.getElementById("confirmpw");
 		const email = document.getElementById("email");
-		const registerToken = document.getElementById("registerToken");
 		const areaoflaw = document.getElementById("areaoflaw");
-		const casedescription = document.getElementById("casedescription");
+		const firm = document.getElementById("firm");
+		const age = document.getElementById("age");
+		const gender = document.getElementById("gender");
+		const languages = document.getElementById("languages");
+		const availability = document.getElementById("availability");
+
 
 		document.getElementById("fullNameNote").innerHTML = null;
+		document.getElementById("ageNote").innerHTML = null;
+		document.getElementById("genderNote").innerHTML = null;
+		document.getElementById("mobilenumberNote").innerHTML = null;
+		document.getElementById("languagesNote").innerHTML = null;
+		document.getElementById("availabilityNote").innerHTML = null;
 		document.getElementById("passwordNote").innerHTML = null;
 		document.getElementById("confirmpwNote").innerHTML = null;
 		document.getElementById("emailNote").innerHTML = null;
-		document.getElementById("tokenNote").innerHTML = null;
 		document.getElementById("areaoflawNote").innerHTML = null;
-		document.getElementById("casedescriptionNote").innerHTML = null; 
+		document.getElementById("firmNote").innerHTML = null;
 
 		let noError = true;
 
 		if (name.value.length == 0) {
 			// Check that full name is not empty
 			document.getElementById("fullNameNote").innerHTML = "Full Name is required.";
+			noError = false;
+		}
+		if (name.value.length == 0) {
+			// Check that full name is not empty
+			document.getElementById("fullNameNote").innerHTML = "Full Name is required.";
+			noError = false;
+		}
+
+		if (age.value.length == 0) {
+			// Check that full name is not empty
+			document.getElementById("ageNote").innerHTML = "Age is required.";
+			noError = false;
+		}
+		if (gender.value == 0) {
+			// Check that full name is not empty
+			document.getElementById("genderNote").innerHTML = "Gender is required.";
+			noError = false;
+		}
+		if (firm.value.length == 0){
+			document.getElementById("firmNote").innerHTML = "Firm name is required.";
 			noError = false;
 		}
 		if (email.value.length == 0) {
@@ -91,20 +108,25 @@ const registerPage = () => {
 			document.getElementById("confirmpwNote").innerHTML = "Password does not match.";
 			noError = false;
 		}
-		if (registerToken.value.length == 0) {
-			// Check that register token is not empty
-			document.getElementById("tokenNote").innerHTML = "Registration is only permitted with a valid registration token.";
+		if (areaoflaw.value.length == 0) {
+			// Check that full name is not empty
+			document.getElementById("areaoflawNote").innerHTML = "Please select an area of law.";
+			noError = false;
+		}
+		if (languages.value.length == 0) {
+			// Check that full name is not empty
+			document.getElementById("languagesNote").innerHTML = "You are required to specify the languages you are fluent in.";
+			noError = false;
+		}
+		if (availability.value == 0) {
+			// Check that full name is not empty
+			document.getElementById("availabilityNote").innerHTML = "Please select your availability period.";
 			noError = false;
 		}
 		
 		if (document.getElementById("areaoflaw").value == 0) {
 			// Check that class is selected
 			document.getElementById("areaoflawNote").innerHTML = "Area of law must be specified.";
-			noError = false;
-		}
-		if (document.getElementById("areaoflaw").value == 1 && document.getElementById("casedescription").value.length == 0) {
-			// Check that class is selected
-			document.getElementById("casedescriptionNote").innerHTML = "This section cannot be empty.";
 			noError = false;
 		}
 		if (document.getElementById("mobilenumber").value.length == 0) {
@@ -115,11 +137,6 @@ const registerPage = () => {
 		if (document.getElementById("mobilenumber").value.length < 8) {
 			// Check that class is selected
 			document.getElementById("mobilenumberNote").innerHTML = "Your mobile number must be at least 8 digits.";
-			noError = false;
-		}
-		if (document.getElementById("budget").value.length == 0) {
-			// Check that class is selected
-			document.getElementById("budgetNote").innerHTML = "Please enter your budget.";
 			noError = false;
 		}
 		if (document.getElementById("languages").value.length == 0) {
@@ -134,34 +151,29 @@ const registerPage = () => {
 			noError = false;
 		}
 
-		if (document.getElementById("urgency").value == 0) {
+		if (document.getElementById("availability").value == 0) {
 			// Check that class is selected
-			document.getElementById("urgencyNote").innerHTML = "Please select the urgency level of your request.";
+			document.getElementById("availabilityNote").innerHTML = "Please select your availability period.";
 			noError = false;
 		}
 
-		if (document.getElementById("registerToken").value !== "WeloveSMU!") {
-			document.getElementById("tokenNote").innerHTML = "Wrong registration token.";
-			noError = false;
-		}
 
 		if (noError) {
 			const data = {
 				"name": name.value,
-				"age": document.getElementById("age").value,
-				"gender": document.getElementById("gender").value,
+				"age": age.value,
+				"gender": gender.value,
 				"email": email.value,
-				"mobile": document.getElementById("mobilenumber").value,
-				"budget": document.getElementById("budget").value,
-				"languages": document.getElementById("languages").value,
-				"lawyerGender": document.getElementById("lawyerGender").value,
-				"urgent": document.getElementById("urgency").value,
+				"mobile": mobilenumber.value,
+				"languages": languages.value,
+				"availability": availability.value,
+				"firm": firm.value,
 				"password": password.value,
-				"token": registerToken.value,
 				"areaOfLaw": areaoflaw.value,
-				"caseDescription": document.getElementById("caseDescription").value,
+
 			}
 
+			// TODO
 			axios.post(apiRoot + "/register", data)
 				.then(res => {
 					if (res.status == 200) {
@@ -207,65 +219,38 @@ return(
 					<Form.Control type="text" placeholder="Enter mobile number" />
 					<Form.Text id="mobilenumberNote" style={warningStyle}></Form.Text>
 				</Form.Group>
-				<Form.Group controlId="budget" className={styles.formEntry}>
-					<Form.Label>Estimated Budget for Legal Services</Form.Label>
-					<Form.Control type="text" placeholder="Enter budget" />
-					<Form.Text id="budgetNote" style={warningStyle}></Form.Text>
-				</Form.Group>
 				<Form.Group controlId="languages" className={styles.formEntry}>
-					<Form.Label>Preferred languages/dialects</Form.Label>
+					<Form.Label>Languages that you are fluent in</Form.Label>
 					<Form.Control type="text" placeholder="Enter languages" />
-					<Form.Text id="languagesNote" style={warningStyle}></Form.Text>
-					<Form.Text className="text-muted" style={mutedTextStyle}>
-						This is the language that you prefer to use to communicate with your lawyer.
-					</Form.Text>					
+					<Form.Text id="languagesNote" style={warningStyle}></Form.Text>					
 				</Form.Group>
-				<Form.Group controlId="lawyerGender" className={styles.formEntry}>
-					<Form.Label>Preferred Gender of Lawyer</Form.Label>
-					<Form.Control as="select">
-						<option value={0}>Select gender</option>
-						<option value={"Male"}>Male</option>
-						<option value={"Female"}>Female</option>
-						<option value={"No preference"}>No Preference</option>
-					</Form.Control>
-					<Form.Text id="lawyergenderNote" style={warningStyle}>
-					</Form.Text>
+				<Form.Group controlId="firm" className={styles.formEntry}>
+					<Form.Label>Organisation/Law Firm</Form.Label>
+					<Form.Control type="text" placeholder="Enter firm" />
+					<Form.Text id="firmNote" style={warningStyle}></Form.Text>					
 				</Form.Group>
-				<Form.Group controlId="urgency" className={styles.formEntry}>
-					<Form.Label>Urgency of Request</Form.Label>
+				<Form.Group controlId="availability" className={styles.formEntry}>
+					<Form.Label>Availability</Form.Label>
 					<Form.Control as="select">
-						<option value={0}>Select level of urgency</option>
-						<option value={"Urgent (as soon as possible)"}>Urgent (as soon as possible)</option>
-						<option value={"Within 6 months"}>Within 6 months</option>
-						<option value={"Within 1 year"}>Within 1 year</option>
+						<option value={0}>Select if you can take urgent cases</option>
+						<option value={1}>Can take urgent cases</option>
+						<option value={2}>Cannot take urgent cases</option>
 					</Form.Control>
-					<Form.Text id="urgencyNote" style={warningStyle}>
+					<Form.Text id="availabilityNote" style={warningStyle}>
 					</Form.Text>
 				</Form.Group>
 				<Form.Group controlId="areaoflaw" className={styles.formEntry}>
-					<Form.Label>Area of Law</Form.Label>
+					<Form.Label>Legal Areas of Expertise</Form.Label>
 					<Form.Control as="select">
 						<option value={0}>Select area of law</option>
 						<option value={"Criminal Law"}>Criminal Law</option>
 						<option value={"Family Law"}>Family Law</option>
 						<option value={"Employment and Labour Law"}>Employment and Labour Law</option>
 						<option value={"Company Law"}>Company Law</option>
-						<option value={1} onSelect="setLaw()">Not sure</option>
 					</Form.Control>
-					<Form.Text className="text-muted" style={mutedTextStyle}>
-						Please select the area of law that you think your legal issues fall under. 
-					</Form.Text>
 					<Form.Text id="areaoflawNote" style={warningStyle} >
 					</Form.Text>
-				</Form.Group>
-				<Form.Group controlId="caseDescription"className={styles.formEntry}>
-					<Form.Label>Case Description</Form.Label>
-					<Form.Control as="textarea" rows={3} placeholder="Enter description" />
-					<Form.Text id="casedescriptionNote" style={warningStyle}></Form.Text>
-					<Form.Text className="text-muted" style={mutedTextStyle}>
-						Please describe the legal issues that you are facing succintly. This section is compulsory only if you do not know the area of law that your legal issues fall under.
-					</Form.Text>
-				</Form.Group>
+                </Form.Group>
 				<Form.Group controlId="password" className={styles.formEntry}>
 					<Form.Label>Password</Form.Label>
 					<Form.Control id="password" type="password" placeholder="Enter password" onChange={handleEnterPassword} />
@@ -276,11 +261,6 @@ return(
 					<Form.Control type="password" placeholder="Enter password again" id="confirmpw" onChange={handleEnterPassword} />
 					<Form.Text id="confirmpwNote" style={warningStyle}></Form.Text>
 				</Form.Group>
-				<Form.Group controlId="registerToken" className={styles.formEntry}>
-					<Form.Label>Token</Form.Label>
-					<Form.Control type="password" placeholder="Enter registration token" />
-					<Form.Text id="tokenNote" style={warningStyle}></Form.Text>
-				</Form.Group>
 				<Button type="submit">Submit</Button>
 			</Form>
 		</div>
@@ -288,4 +268,4 @@ return(
 	
 }
 
-export default registerPage
+export default lawyerRegisterPage
