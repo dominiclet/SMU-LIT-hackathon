@@ -1,5 +1,6 @@
 import styles from "../styles/Lawyer.module.css";
 import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
 import Image from 'react-bootstrap/Image';
 import Badge from 'react-bootstrap/Badge';
 import GoogleMapReact from 'google-map-react';
@@ -8,13 +9,14 @@ import axios from "axios";
 import { apiRoot } from "../config";
 import StageStepperLawyer from "./clientDashboard/StageStepperLawyer";
 import { Button } from "react-bootstrap";
+import { style } from "@material-ui/system";
 
 const LawyerDashboard = (props) => {
 	// State to store data of clientData
 	const [clientData, setClientData] = useState();
 	// State to store lawyer data
 	const [lawyerData, setLawyerData] = useState()
-	
+
 	// Fetch individual client data
 	useEffect(() => {
 		console.log(props.clientId);
@@ -46,13 +48,13 @@ const LawyerDashboard = (props) => {
 	const handleRejectClient = () => {
 		alert("Please be inclusive and accept the client!");
 	}
-	
+
 
 	return (
 		<div className={styles.outerContainer}>
-			{lawyerData ? 
-			<h1 style={{"textAlign": "center"}}>Hello, {lawyerData.name}</h1>
-			: null}
+			{lawyerData ?
+				<h1 style={{ "textAlign": "center" }}>Hello, {lawyerData.name}</h1>
+				: null}
 			<StageStepperLawyer stage={props.stage} />
 			<div className={styles.selectionButtonsContainer}>
 				<Button variant="outline-danger" onClick={handleRejectClient}>Reject client</Button>
@@ -62,9 +64,9 @@ const LawyerDashboard = (props) => {
 				<Card className={styles.smallCard}>
 					<Card.Body>
 						<Card.Title>Client's profile</Card.Title>
-						{ !clientData ? "We're on the way! Please hang on..." : 
+						{!clientData ? "We're on the way! Please hang on..." :
 							<div className={styles.personInfo}>
-								<Image src="../../blankimage.svg" roundedCircle />
+								<Image className={styles.image} src="../../blankimage.svg" roundedCircle />
 								<h5>{clientData.name}</h5>
 								<h6>Gender</h6>
 								<p>{clientData.gender}</p>
@@ -80,7 +82,7 @@ const LawyerDashboard = (props) => {
 					<Card.Body>
 						<Card.Title>Meetup info</Card.Title>
 						<div className={styles.mapContainer}>
-							<GoogleMapReact 
+							<GoogleMapReact
 								defaultCenter={{
 									lat: 1.3188,
 									lng: 103.8172
@@ -89,6 +91,8 @@ const LawyerDashboard = (props) => {
 							>
 							</GoogleMapReact>
 						</div>
+						<Card.Title>Address</Card.Title>
+						<Form.Control className={styles.address} placeholder="469G Bukit Timah Rd, Singapore 259776" />
 					</Card.Body>
 				</Card>
 			</div>
@@ -96,9 +100,9 @@ const LawyerDashboard = (props) => {
 				<Card className={styles.bigCard}>
 					<Card.Body>
 						<Card.Title>Case brief</Card.Title>
-						<Card.Text>
-							{clientData ? clientData.brief : "We're on the way! Please hang on..."}
-						</Card.Text>
+						<div>
+							{clientData ? <Form.Control className={styles.briefTextDisplay} as="textarea" placeholder={clientData.brief} plaintext readOnly /> : "We're on the way! Please hang on..."}
+						</div>
 					</Card.Body>
 				</Card>
 			</div>

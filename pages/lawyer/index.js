@@ -58,7 +58,7 @@ const lawyerDashboardPage = () => {
 	} else {
 		return (
 			<div>
-				Loading...
+				We're on the way! Please hang on...
 			</div>
 		);
 	}

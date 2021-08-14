@@ -52,11 +52,14 @@
 .mapContainer {
 	width: 100%;
 	height: 70%;
+	margin-bottom: 10px;
 }
 
 .personInfo {
+	width: 100%;
 	justify-content: center;
-}
+	text-align: center;
+  }
 
 .personInfo > p {
 	margin-bottom: 5px;
@@ -87,5 +90,37 @@
 	flex-direction: column;
 	padding-left: 20px;
 	padding-right: 20px;
-	margin-top: 80px;
 }
+
+.image {
+	margin-top: 3px;
+	margin-bottom: 10px;
+}
+
+.briefTextDisplay {
+	height: 300px;
+	background-color: #e4dace;
+	border-color: #e4dace;
+	padding-left: 10px;
+	margin-bottom: 10px;
+	white-space: pre-line;
+	resize: none;
+}
+  
+.briefTextDisplay:focus {
+	background-color: #e4dace;
+	box-shadow: none;
+	white-space: pre-line;
+}
+
+.address {
+	background-color: #e7dfd6;
+	border-color: #e7dfd6;
+	resize: none;
+  }
+  
+.address:focus {
+	background-color: #e7dfd6;
+	box-shadow: none;
+	white-space: pre-line;
+  }
