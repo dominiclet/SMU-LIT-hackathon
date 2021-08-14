@@ -17,7 +17,7 @@ Clients who have been referred by LAB would be able to sign up for the platform,
 If clients do not know what area of law their issues fall under, our NLP tool is able to identify the area of law by processing the client’s description of their case.
 We used a bag-of-words model. Features were extracted from case law for use in our ML model. We performed NLP by converting filenames and corpuses into a dataframe, followed by text preprocessing using the bag of words algorithm and TF-lDF scoring method . Finally, we performed modelling and obtained the area of law for each corpus.
 
-##Selecting a Lawyer
+## Selecting a Lawyer
 On the clients’ dashboard, statistics regarding the average costs of similar cases are available to them, enabling them to make an informed decision on whether to proceed with engaging the lawyer. 
 
 By increasing access and providing clearer information, we hope the journey to a more equal and just society is within reach.
