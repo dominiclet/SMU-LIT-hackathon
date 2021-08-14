@@ -184,7 +184,7 @@ def add_client(lawyer_id):
 	name = get_jwt_identity()
 	with sqlite3.connect("vivek.db") as db:
 		cur = db.cursor()
-		name = cur.execute(f"SELECT name FROM client WHERE name='{name}'';").fetchone()[0]
+		id = cur.execute(f"SELECT id FROM client WHERE name='{name}';").fetchone()[0]
 		data = {
 			"name" : name,
 			"id" : id,
