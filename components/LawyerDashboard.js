@@ -29,7 +29,7 @@ const LawyerDashboard = (props) => {
 				<Card className={styles.smallCard}>
 					<Card.Body>
 						<Card.Title>Client's profile</Card.Title>
-						{ !clientData ? "Loading..." : 
+						{ !clientData ? "We're on the way! Please hang on..." : 
 							<div className={styles.personInfo}>
 								<Image src="../../blankimage.svg" roundedCircle />
 								<h5>{clientData.name}</h5>
@@ -64,7 +64,7 @@ const LawyerDashboard = (props) => {
 					<Card.Body>
 						<Card.Title>Case brief</Card.Title>
 						<Card.Text>
-							{clientData ? clientData.brief : "Loading..."}
+							{clientData ? clientData.brief : "We're on the way! Please hang on..."}
 						</Card.Text>
 					</Card.Body>
 				</Card>

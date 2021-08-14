@@ -38,9 +38,9 @@ const clientDashboard = () => {
 				<div className={styles.outerContainer}>
 					<h1 className={styles.heading}>Hello, {clientData.name}</h1>
 					<StageStepper progress = {clientData.progress}/>
-					<SelectionButtons progress = {clientData.progress}/>
+					<SelectionButtons progress = {clientData.progress} allocatedLawyer = {clientData.allocated_lawyer}/>
 					<div className={styles.rowContainer}>
-						<LawyerProfile/>
+						<LawyerProfile allocatedLawyer = {clientData.allocated_lawyer}/>
 						<MeetUpInfo progress = {clientData.progress}/>
 					</div>
 					<div className={styles.rowContainer}>

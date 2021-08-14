@@ -6,11 +6,11 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 import { apiRoot } from "../../config";
 
-const LawyerProfile = () => {
+const LawyerProfile = (props) => {
 	const [lawyerData, setLawyerData] = useState();
 
 	useEffect(() => {
-		axios.get(apiRoot + "/lawyerData/1").then(res => {
+		axios.get(apiRoot + `/lawyerData/${props.allocatedLawyer}`).then(res => {
 			setLawyerData(res.data);
 		})
 	}, [])
@@ -23,7 +23,7 @@ const LawyerProfile = () => {
                         Take a moment to look at our lawyer's information.
                     </Card.Text>
                     <div className={styles.personInfo}>
-                        <Image src="../../blankimage.svg" roundedCircle />
+                        <Image className={styles.image} src="../../blankimage.svg" roundedCircle />
                         <h5>{lawyerData.name}</h5>
                         <p>{lawyerData.firm}</p>
                         <h6>Areas of Expertise</h6>

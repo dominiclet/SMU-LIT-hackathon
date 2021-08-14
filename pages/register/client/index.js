@@ -220,7 +220,7 @@ const registerPage = () => {
 
   return (
     <div className={styles.formContainer}>
-      <h4 style={{ textAlign: "center" }}>Register</h4>
+      <h4 style={{ textAlign: "center" }}>Client Registration</h4>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="name" className={styles.formEntry}>
           <Form.Label>Full Name (as in NRIC) </Form.Label>

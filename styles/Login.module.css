@@ -97,3 +97,7 @@
 	background-color: #d3b683;
 	transition-duration: 0.4s;
 }
+
+.registerContainer {
+	text-align: center;
+}

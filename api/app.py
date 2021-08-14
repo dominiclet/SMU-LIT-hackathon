@@ -65,7 +65,8 @@ def client_data(id):
 			"email": user[5],
 			"password": user[6],
 			"progress": user[7],
-			"brief": user[11]
+			"allocated_lawyer": user[8],
+			"brief": user[12]
 		}
 		return jsonify(json_data)
 
@@ -89,7 +90,8 @@ def curr_client_data():
 			"email": user[5],
 			"password": user[6],
 			"progress": user[7],
-			"brief": user[11]
+			"allocated_lawyer": user[8],
+			"brief": user[12]
 		}
 		return jsonify(json_data)
 
@@ -176,6 +178,55 @@ def decrement_stage():
 		return "Decrement done", 200
 
 """
+Display previous lawyer
+"""
+@app.route("/prevLawyer", methods=["POST"])
+@jwt_required()
+def prev_lawyer():
+	name = get_jwt_identity()
+	with sqlite3.connect("vivek.db") as db:
+		cur = db.cursor()
+		data = cur.execute(f"SELECT allocated_lawyer FROM client WHERE name = '{name}';")
+		progress = data.fetchone()[0]
+		cur.execute(f"UPDATE client SET allocated_lawyer={progress-1} WHERE name='{name}';")
+		db.commit()
+		return "Decrement done", 200
+
+"""
+Display next lawyer
+"""
+@app.route("/nextLawyer", methods=["POST"])
+@jwt_required()
+def next_lawyer():
+	name = get_jwt_identity()
+	with sqlite3.connect("vivek.db") as db:
+		cur = db.cursor()
+		data = cur.execute(f"SELECT allocated_lawyer FROM client WHERE name = '{name}';")
+		progress = data.fetchone()[0]
+		cur.execute(f"UPDATE client SET allocated_lawyer={progress+1} WHERE name='{name}';")
+		db.commit()
+		return "Decrement done", 200
+
+"""
+Display previous or next lawyer
+"""
+@app.route("/cycleLawyer", methods=["POST"])
+@jwt_required()
+def cycle_lawyer():
+	name = get_jwt_identity()
+	#action = request.json.get("action")
+	with sqlite3.connect("vivek.db") as db:
+		cur = db.cursor()
+		data = cur.execute(f"SELECT allocated_lawyer FROM client WHERE name='{name}';")
+		allocated = data.fetchone()[0]
+		#if action == 1:
+			#cur.execute(f"UPDATE client SET allocated_lawyer={allocated_lawyer+1} WHERE name='{name}';")
+		#if action == 0:
+		cur.execute(f"UPDATE client SET allocated_lawyer={allocated-1} WHERE name='{name}';")
+		db.commit()
+		return "Done", 200
+
+"""
 Add client to list of clients to be displayed to lawyer to accept/decline
 """
 @app.route("/addClient/<lawyer_id>", methods=["POST"])
@@ -184,7 +235,7 @@ def add_client(lawyer_id):
 	name = get_jwt_identity()
 	with sqlite3.connect("vivek.db") as db:
 		cur = db.cursor()
-		name = cur.execute(f"SELECT name FROM client WHERE name='{name}'';").fetchone()[0]
+		id = cur.execute(f"SELECT id FROM client WHERE name='{name}';").fetchone()[0]
 		data = {
 			"name" : name,
 			"id" : id,
@@ -356,7 +407,7 @@ def register_client():
 		# NLP not needed
 		with sqlite3.connect("vivek.db") as db:
 			cur = db.cursor()
-			res = cur.execute(f"INSERT INTO client (name, age, gender, phone, email, password, progress, allocated_lawyer) VALUES ('{name}', {age}, '{gender}', '{mobile}', '{email}', '{password}', 1, 2);")
+			res = cur.execute(f"INSERT INTO client (name, age, gender, phone, email, password, progress, allocated_lawyer) VALUES ('{name}', {age}, '{gender}', '{mobile}', '{email}', '{password}', 0, 2);")
 			cur.execute(f"INSERT INTO preferences (languages, lawyer_gender, urgent, brief, category) VALUES ('{languages}', '{lawyerGender}', '{urgent}', '{caseDescription}', '{areaOfLaw}');")
 			db.commit()
 			return "Registered", 200

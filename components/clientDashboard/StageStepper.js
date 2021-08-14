@@ -16,11 +16,11 @@ const getSteps = () => {
 const getStepContent = (stepIndex) => {
     switch (stepIndex) {
         case 0 :
-            return "Info about finding lawyer";
+            return "Here's a lawyer we have matched for you! Do take a look and accept the lawyer if you are comfortable.";
         case 1 :
-            return "Explain how to set up meeting";
+            return "You should be reaching out to the lawyer to set a meeting, co-ordinate and provide all the necessary information related to the case.";
         case 2 : 
-            return "Leave a review etc."
+            return "Leave a review and provide us with relevant information to make the next experience better!"
     }
 }
 const StageStepper = (props) => {

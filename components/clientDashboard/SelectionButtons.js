@@ -22,7 +22,7 @@ const SelectionButtons = (props) => {
 
     // handle adding client to lawyer's client list
     const addClient = () => {
-        axios.post(apiRoot + "/addClient/1", 1, {
+        axios.post(apiRoot + `/addClient/${props.allocatedLawyer}`, 1, {
             headers: {'Authorization': 'Bearer ' + localStorage.getItem("jwt-token")}
         }).then(res => {
 			if (res.status == 200) {
@@ -36,6 +36,32 @@ const SelectionButtons = (props) => {
     // handle revert to previous stage
     const revertStage = () => {
 		axios.post(apiRoot + "/decrementStage", 1, {
+            headers: {'Authorization': 'Bearer ' + localStorage.getItem("jwt-token")}
+        }).then(res => {
+			if (res.status == 200) {
+				router.reload();
+			}
+		}).catch(e => {
+            throw e;
+        });
+	}
+
+    // display previous lawyer
+    const prevLawyer = () => {
+		axios.post(apiRoot + "/prevLawyer", 1, {
+            headers: {'Authorization': 'Bearer ' + localStorage.getItem("jwt-token")}
+        }).then(res => {
+			if (res.status == 200) {
+				router.reload();
+			}
+		}).catch(e => {
+            throw e;
+        });
+	}
+
+    // display next lawyer
+    const nextLawyer = () => {
+		axios.post(apiRoot + "/nextLawyer", 1, {
             headers: {'Authorization': 'Bearer ' + localStorage.getItem("jwt-token")}
         }).then(res => {
 			if (res.status == 200) {
@@ -60,13 +86,13 @@ const SelectionButtons = (props) => {
         <div>
             {showSelectionButtons() &&
                 <div className={clientStyle.selectionButtons}>   
-                    <Button variant="outline-secondary">Revert to previous lawyer</Button>
+                    <Button variant="outline-secondary" onClick={prevLawyer}>Revert to previous lawyer</Button>
                     <Button variant="outline-success" 
                         onClick={addClient}
                         >
                             Select this lawyer
                     </Button>
-                    <Button variant="outline-danger">Look for another lawyer</Button>
+                    <Button variant="outline-danger" onClick={nextLawyer}>Look for another lawyer</Button>
                 </div>
             }
             {completeCase() &&

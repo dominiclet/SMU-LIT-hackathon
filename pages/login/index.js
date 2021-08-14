@@ -3,6 +3,7 @@ import { useState } from 'react';
 import styles from '../../styles/Login.module.css';
 import { apiRoot } from '../../config';
 import { useRouter } from 'next/dist/client/router';
+import Link from 'next/Link';
 
 const loginPage = () => {
 	const router = useRouter();
@@ -72,6 +73,11 @@ const loginPage = () => {
 				</div>
 				<div className={styles.buttonContainer}>
 					<button className={styles.loginButton} onClick={handleLogin}>Login</button>
+				</div>
+				<div className={styles.registerContainer}>
+					Register here: <br/>
+					<Link href={"/register/client"}>I'm looking for a lawyer!</Link><br/>
+					<Link href={"/register/lawyer"}>I'm a lawyer!</Link>
 				</div>
 			</div>
 		</div>
