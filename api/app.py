@@ -266,7 +266,7 @@ def login():
 		user = data.fetchone()
 		if user and user[6] == password:
 			access_token = create_access_token(identity=user[1])
-			return jsonify(access_token=access_token, route=user_type), 200
+			return jsonify(access_token=access_token, route=user_type, id=user[0]), 200
 		else:
 			return "Bad email or password", 401
 
@@ -411,3 +411,30 @@ def register_client():
 			cur.execute(f"INSERT INTO preferences (languages, lawyer_gender, urgent, brief, category) VALUES ('{languages}', '{lawyerGender}', '{urgent}', '{caseDescription}', '{areaOfLaw}');")
 			db.commit()
 			return "Registered", 200
+
+"""
+Accept client
+"""
+@app.route("/acceptClient", methods=['POST'])
+def accept_client():
+	data = request.json
+	self_id = data.get("selfId")
+	with sqlite3.connect("vivek.db") as db:
+		cur = db.cursor()
+		res = cur.execute(f"SELECT * FROM lawyer WHERE id={self_id};")
+		lawyer_data = res.fetchone()
+		client_list = json.loads(lawyer_data[7])
+		for client in client_list: 
+			if client.get("id") == data.get("clientId"):
+				client["stage"] = 1
+				break
+		json_clients = json.dumps(client_list)
+		cur.execute(f"UPDATE lawyer SET clients='{json_clients}' WHERE id={self_id};")
+
+		# Update client table
+		client_name = data.get("clientName")
+		client_data = cur.execute(f"SELECT progress FROM client WHERE name='{client_name}';")
+		progress = client_data.fetchone()[0]
+		cur.execute(f"UPDATE client SET progress={progress+1} WHERE name='{client_name}';")
+	return "", 200
+	

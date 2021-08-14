@@ -7,10 +7,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { apiRoot } from "../config";
 import StageStepperLawyer from "./clientDashboard/StageStepperLawyer";
+import { Button } from "react-bootstrap";
 
 const LawyerDashboard = (props) => {
 	// State to store data of clientData
 	const [clientData, setClientData] = useState();
+	// State to store lawyer data
+	const [lawyerData, setLawyerData] = useState()
 	
 	// Fetch individual client data
 	useEffect(() => {
@@ -19,12 +22,40 @@ const LawyerDashboard = (props) => {
 			.then(res => {
 				setClientData(res.data);
 			});
+
+		axios.get(apiRoot + `/lawyerData/${localStorage.getItem("id")}`)
+			.then(res => {
+				setLawyerData(res.data);
+			});
 	}, []);
+
+	// Accept client button
+	const handleAcceptClient = () => {
+		const data = {
+			"clientName": clientData.name,
+			"clientId": props.clientId,
+			"selfId": localStorage.getItem("id")
+		}
+		axios.post(apiRoot + "/acceptClient", data).then(res => {
+			if (res.status == 200) {
+				location.reload();
+			}
+		})
+	}
+
+	const handleRejectClient = () => {
+		alert("Please be inclusive and accept the client!");
+	}
 	
 
 	return (
 		<div className={styles.outerContainer}>
+			<h1 style={{"textAlign": "center"}}>Hello, {lawyerData.name}</h1>
 			<StageStepperLawyer stage={props.stage} />
+			<div className={styles.selectionButtonsContainer}>
+				<Button variant="outline-danger" onClick={handleRejectClient}>Reject client</Button>
+				<Button variant="outline-success" onClick={handleAcceptClient}>Accept client</Button>
+			</div>
 			<div className={styles.rowContainer}>
 				<Card className={styles.smallCard}>
 					<Card.Body>

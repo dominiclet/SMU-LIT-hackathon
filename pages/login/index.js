@@ -37,6 +37,7 @@ const loginPage = () => {
 		axios.post(apiRoot + "/login", data).then(res => {
 			if (res.status == 200) {
 				localStorage.setItem("jwt-token", res.data["access_token"]);
+				localStorage.setItem("id", res.data['id'])
 				router.push("/" + res.data["route"]);
 			}
 		}).catch(e => {
