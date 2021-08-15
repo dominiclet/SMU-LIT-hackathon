@@ -17,7 +17,8 @@ LawMatch uses the following criteria to ensure that our clients are matched to l
 - Gender
 ## Natural Language Processing 
 If clients do not know what area of law their issues fall under, our NLP tool is able to identify the area of law by processing the client’s description of their case.
-We used a bag-of-words model. Features were extracted from case law for use in our ML model. We performed NLP by converting filenames and corpuses into a dataframe, followed by text preprocessing using the bag of words algorithm and TF-lDF scoring method . Finally, we performed modelling and obtained the area of law for each corpus.
+
+We used a bag-of-words (BoW) model. Features were extracted from case law for use in our ML model. We preprocessed the case law data by cleaning text, removing stop words and applying lemmatization. We used a BoW model and Tf-ldf for feature engineering. We then performed feature selection using a chi-square test. Finally, we trained the machine learning model using the Naive Bayes algorithm and applied it to obtain the area of law for a client’s case description.
 
 ## Selecting a Lawyer
 On the clients’ dashboard, statistics regarding the average costs of similar cases are available to them, enabling them to make an informed decision on whether to proceed with engaging the lawyer. 
